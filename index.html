@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title id="title">お食事処 掲示板</title>
+        <meta charset="utf-8" />
+        <!--<meta name="viewport" content="width=device-width, initial-scale=1.0">-->
+        <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+        integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
+        crossorigin=""/>
+        <!-- Make sure you put this AFTER Leaflet's CSS -->
+        <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+        integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
+        crossorigin=""></script>
+    </head>
+
+    <body>
+    <h1 style="text-align: center;">お食事処 掲示板</h1>
+    <div id="map"></div>
+
+    <!--<div style="text-align: center; margin: 20px;">
+        <h4>ランダムお店選び機能</h4>
+        <input type="text" name="search" placeholder="キーワードを入力" id="randomKeyword">
+        <button onclick="randomSeartch()">スタート</button>
+    </div>-->
+
+    <?!= include('map.html'); ?>
+    <?!= include('css.html'); ?>
+    
+
+    <div class="tab">
+
+      <!-- 初期状態で表示されるコンテンツに対応するラジオボタンにはchecked="checkedを設   定する -->
+      <input id="menu1" class="tab-input" name="menu" type="radio"    checked="checked">
+      <label for="menu1" class="tab-item">登録</label>
+      <div class="tab-content">コンテンツ1</div>
+
+      <input id="menu2" class="tab-input" name="menu" type="radio">
+      <label for="menu2" class="tab-item">ランダム</label>
+      <div class="tab-content">
+        <div style="text-align: center; margin: 20px;">
+          <h4>ランダムお店選び機能</h4>
+          <input type="text" name="search" placeholder="キーワードを入力" id="randomKeyword">
+          <button onclick="randomSeartch()">スタート</button>
+          <div id="notfound"></div>
+        </div>
+      </div>
+
+      <input id="menu3" class="tab-input" name="menu" type="radio">
+      <label for="menu3" class="tab-item">削除</label>
+      <div class="tab-content">コンテンツ3</div>
+
+    </div>   
+
+    <table class="content-table">
+      <thead>
+        <tr>
+          <th>店名</th>
+          <th>キャッチコピー</th>
+          <th>サイト</th>
+        </tr>
+      </thead>
+      <tbody id="playerList"></tbody>  <!-- ここに配列の中身を表示させる -->
+    </table>
+
+    <script>
+        function randomSeartch(){
+            let keyword = document.getElementById('randomKeyword').value.replace(/　/g," ");//全角スペースを半角スペースに;
+            //let keyword = "品川";
+            console.log(keyword);
+            google.script.run.withSuccessHandler(displayAPIResult).withFailureHandler(console.log("error")).getRandomSeartch(keyword);
+        }
+    </script>
+
+    <script>
+      // APIの結果を表示する関数
+      function displayAPIResult(apiResult) {
+
+        const playerList = document.getElementById("playerList");
+        const order = ["name", "catch", "urls"];
+        console.log(apiResult);
+        let falseDiv = document.getElementById('notfound');
+        if(!apiResult){
+          falseDiv.innerHTML = '<h5>キーワード : '+document.getElementById('randomKeyword').value+'では見つかりませんでした...</h5>';
+        }else{
+          falseDiv.innerHTML ="";
+          for(let i = 0; i < apiResult.length; i++){
+            const tr = document.createElement("tr");
+            playerList.appendChild(tr);  
+            for(let j = 0; j < order.length; j++){
+                const td = document.createElement("td");
+                if(order[j] === "urls"){
+                  td.innerHTML = "<a href='"+apiResult[i][order[j]]+"' target='_blank'>リンク</a>";
+                }
+                else {
+                  td.textContent = apiResult[i][order[j]];
+                }
+                console.log(apiResult[i][order[j]],i,j);
+                tr.appendChild(td);
+            }
+          }
+        }
+      }
+    </script>
+
+    </body>
+</html>

@@ -1,0 +1,107 @@
+<style>
+    #map {
+        width: 600px; 
+        height: 450px;
+        display: block;
+        margin-left: auto;
+        margin-right: auto;
+        border: 8px solid rgb(131, 180, 255);
+    }
+
+
+    .content-table {
+      white-space: nowrap;
+      width: 600px;
+      border-collapse: collapse;
+      margin: 25px auto;
+      font-size: 1.0em;
+      border-radius: 5px 5px 0 0;
+      overflow: hidden;
+      box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+    }
+    .content-table thead tr {
+      background: #005498;
+      color: #ffffff;
+      text-align: center;
+      font-weight: bold;
+    }
+    .content-table th,
+    .content-table td {
+      padding: 12px 15px;
+      background: none;
+    }
+    .content-table tbody tr {
+      border-bottom: 1px solid #dddddd;
+      transition: 0.8s all ease;
+    }
+    .content-table tbody tr:nth-of-type(even) {
+      background: #f3f3f3;
+    }
+    .content-table tbody tr:last-of-type {
+      border-bottom: 2px solid #005498;
+    }
+    /*.content-table tbody tr:hover {
+      font-weight: bold;
+      color: #005498;
+    }*/
+
+
+    /*https://yuntu-tek.com/tab-menu/*/
+    * {
+      box-sizing: border-box;
+    }
+
+    /* ラジオボタンは非表示 */
+    input[type="radio"] {
+      display: none;
+    }
+
+    .tab {
+      width: 500px;
+      max-width: 100%;
+      margin: auto;
+      display: flex;
+      flex-flow: wrap;
+    }
+
+    .tab-item {
+      display: block;
+      flex-grow: 1;
+      text-align: center;
+      padding: 10px 0;
+      cursor: pointer;
+      order: -1;/* タブメニューは一番上に表示する */
+
+      /* 下線以外をつける */
+      border-top: 1px solid skyblue;
+      border-left: 1px solid skyblue;
+      border-right: 1px solid skyblue;
+    }
+
+    .tab-item:not(:first-of-type) {
+      border-left: none;
+    }
+
+    /* アクティブなタブの背景色と文字色を変える */
+    .tab-input:checked + .tab-item {
+      background: red;
+      color: white;
+    }
+
+    /* コンテンツは原則非表示 */
+    .tab-content {
+      width: 100%;
+      height: 200px;
+      display: none;
+      justify-content: center;
+      align-items: center;
+      font-size: 40px;
+      border: 1px solid skyblue;
+    }
+
+    /* ラジオボタンがチェックされているコンテンツだけは表示 */
+    .tab-input:checked + .tab-item + .tab-content {
+      display: flex;
+    }
+
+</style>

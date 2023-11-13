@@ -1,0 +1,61 @@
+<script>
+
+    /*const data = [{
+        name : '店の名前',
+        link : "https://example.com/",
+        latitude : 37.508106,
+        longitude : 139.93023,
+        comment : "焼き鳥って言うのに、焼き牛とは言わないんだね。",
+        user : "hogeman",
+        release : true
+    }]*/
+
+    //マーカーにコメントを追加
+
+    //マーカーのポップアップ
+        //店名
+        //場所
+        //詳細情報のボタン
+
+    //地図上にマーカーを追加
+    function addMarkerOnMap(data){
+        let content;
+        let button = '<br><button name="button">詳細情報</button>';
+        // マーカーを追加する
+        for (let i = 0; i < data.length; i++) {
+            content = L.popup().setContent(data[i]["comment"] + button);
+            L.marker([data[i]["latitude"],data[i]["longitude"]]).addTo(map)
+            .bindPopup(content)
+            .openPopup();
+            //.bindPopup(data[i]["comment"])
+        }
+      // 地図の中心座標とズームレベルを設定する
+        map.setView([37.508106, 139.930239], 13);
+        return 0;
+    }
+
+    //マーカーの情報をスプレッドシートから読み込む
+    function readMapData(){
+        let datatest;
+        google.script.run.withSuccessHandler(
+            function(datatest) {
+                console.log(datatest);
+                addMarkerOnMap(datatest);
+            }
+        ).withFailureHandler(console.log("error")).getDataSet()
+        return 0;
+    }
+
+    // 地図を作成する
+    var map = L.map('map');
+    
+    // タイルレイヤーを作成し、地図にセットする
+    L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        maxZoom: 19,
+        attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+    }).addTo(map);
+    
+    readMapData();
+
+
+</script>
