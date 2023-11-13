@@ -17,12 +17,6 @@
     <h1 style="text-align: center;">お食事処 掲示板</h1>
     <div id="map"></div>
 
-    <!--<div style="text-align: center; margin: 20px;">
-        <h4>ランダムお店選び機能</h4>
-        <input type="text" name="search" placeholder="キーワードを入力" id="randomKeyword">
-        <button onclick="randomSeartch()">スタート</button>
-    </div>-->
-
     <?!= include('map.html'); ?>
     <?!= include('css.html'); ?>
     
@@ -32,7 +26,14 @@
       <!-- 初期状態で表示されるコンテンツに対応するラジオボタンにはchecked="checkedを設   定する -->
       <input id="menu1" class="tab-input" name="menu" type="radio"    checked="checked">
       <label for="menu1" class="tab-item">登録</label>
-      <div class="tab-content">コンテンツ1</div>
+      <div class="tab-content">
+        <div style="text-align: center; margin: 20px;">
+          <h4>お店の登録</h4>
+          <input type="text" name="register" placeholder="登録したいお店" id="registerData">
+          <button onclick="">検索</button>
+          <div id="checkdata"></div>
+        </div>
+      </div>
 
       <input id="menu2" class="tab-input" name="menu" type="radio">
       <label for="menu2" class="tab-item">ランダム</label>
