@@ -75,7 +75,23 @@ function getRandomSearch(keyword) {
 }
 
 function getRegisterSearch(keyword){
-    return keyword;
+    let result = [];
+    const URL_tmp = URL + '?key=' + API_KEY + '&keyword=' + keyword + "&format=json" + "&count=1";
+    
+    let response = UrlFetchApp.fetch(URL_tmp);
+    var responseData = JSON.parse(response.getContentText());
+    
+    if(responseData["results"]["shop"].length === 0){
+        return false;
+    }
+    const shopData = responseData["results"]["shop"][0];
+    const resultObj = {
+        "name": shopData["name"],
+        "catch": shopData["catch"],
+        "urls": shopData["urls"]["pc"]
+    };
+    result.push(resultObj);
+    return result;
 }
 
 function doGet() {
