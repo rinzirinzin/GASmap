@@ -32,6 +32,7 @@
           <input type="text" name="register" placeholder="登録したいお店" id="registerData">
           <button onclick="registerSearch()">検索</button>
           <div id="checkdata"></div>
+          <div id="notfound1"></div>
         </div>
       </div>
 
@@ -42,7 +43,7 @@
           <h4>ランダムお店選び機能</h4>
           <input type="text" name="search" placeholder="キーワードを入力" id="randomKeyword">
           <button onclick="randomSearch()">スタート</button>
-          <div id="notfound"></div>
+          <div id="notfound2"></div>
         </div>
       </div>
 
@@ -64,17 +65,25 @@
     </table>
 
     <script>
+        let activeTag;
+        let falseTag;
+
+        function registerSearch(){
+            activeTag = 'registerData';
+            falseTag = 'notfound1';
+            let keyword = document.getElementById('registerData').value.replace(/　/g," ");
+            google.script.run.withSuccessHandler(displayAPIResult).withFailureHandler(console.log("error")).getRegisterSearch(keyword);
+        }
+
         function randomSearch(){
-            let keyword = document.getElementById('randomKeyword').value.replace(/　/g," ");//全角スペースを半角スペースに;
+            activeTag = 'randomKeyword';
+            falseTag = 'notfound2';
+            let keyword = document.getElementById(activeTag).value.replace(/　/g," ");//全角スペースを半角スペースに;
             //let keyword = "品川";
             console.log(keyword);
             google.script.run.withSuccessHandler(displayAPIResult).withFailureHandler(console.log("error")).getRandomSearch(keyword);
         }
 
-        function registerSearch(){
-          let keyword = document.getElementById('registerData').value.replace(/　/g," ");
-          google.script.run.withSuccessHandler(displayAPIResult).withFailureHandler(console.log("error")).getRegisterSearch(keyword);
-        }
     </script>
 
     <script>
@@ -83,9 +92,9 @@
         const playerList = document.getElementById("playerList");
         const order = ["name", "catch", "urls"];
         console.log(apiResult);
-        let falseDiv = document.getElementById('notfound');
+        const falseDiv = document.getElementById(falseTag);
         if(!apiResult){
-          falseDiv.innerHTML = '<h5>キーワード : '+document.getElementById('randomKeyword').value+'では見つかりませんでした...</h5>';
+          falseDiv.innerHTML = '<h5>キーワード : '+document.getElementById(activeTag).value+'では見つかりませんでした...</h5>';
         }else{
           falseDiv.innerHTML ="";
           for(let i = 0; i < apiResult.length; i++){
@@ -103,6 +112,10 @@
                 tr.appendChild(td);
             }
           }
+          if(activeTag === 'registerData'){
+            const checkDiv = document.getElementById("checkdata");
+            checkDiv.innerHTML = '<h5>登録する店名は<br> '+apiResult[0]["name"]+' <br>で合っていますか?</h5>';
+          } 
         }
       }
     </script>

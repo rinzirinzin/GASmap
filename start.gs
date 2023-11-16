@@ -46,7 +46,7 @@ function shuffle(array) {
 const URL = 'http://webservice.recruit.co.jp/hotpepper/gourmet/v1/';
 const API_KEY = "APIキー";
 
-//リクルートAPIから店を探す
+//リクルートAPIからランダムに店を探す
 function getRandomSearch(keyword) {
     let result = [];
     const URL_tmp = URL + '?key=' + API_KEY + '&keyword=' + keyword + "&format=json" + "&count=100";
@@ -74,6 +74,7 @@ function getRandomSearch(keyword) {
     return result;
 }
 
+//リクルートAPIから店を探す
 function getRegisterSearch(keyword){
     let result = [];
     const URL_tmp = URL + '?key=' + API_KEY + '&keyword=' + keyword + "&format=json" + "&count=1";
