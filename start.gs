@@ -75,10 +75,16 @@ function getRandomSearch(keyword) {
 }
 
 //リクルートAPIから店を探す
-function getRegisterSearch(keyword){
+async function getRegisterSearch(keyword,swkey){
     let result = [];
-    const URL_tmp = URL + '?key=' + API_KEY + '&keyword=' + keyword + "&format=json" + "&count=1";
-    
+    let URL_tmp;
+    if(swkey === 'name'){
+        URL_tmp = URL + '?key=' + API_KEY + '&keyword=' + keyword + "&format=json" + "&count=1";
+    }
+    else if(swkey === 'tel'){
+        URL_tmp = URL + '?key=' + API_KEY + '&tel=' + keyword.replace(/-/g,"")+ "&format=json";
+    }
+    console.log(URL_tmp);
     let response = UrlFetchApp.fetch(URL_tmp);
     var responseData = JSON.parse(response.getContentText());
     

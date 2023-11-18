@@ -29,8 +29,12 @@
       <div class="tab-content">
         <div style="text-align: center; margin: 20px;">
           <h4>お店の登録</h4>
-          <input type="text" name="register" placeholder="登録したいお店" id="registerData">
-          <button onclick="registerSearch()">検索</button>
+          <div>店名検索</div>
+          <input type="text" name="register" placeholder="店名" id="registerDataName">
+          <button onclick="registerSearchName()">検索</button>
+          <div>電話番号検索</div>
+          <input type="text" name="register" placeholder="電話番号" id="registerDataTel">
+          <button onclick="registerSearchTel()">検索</button>          
           <div id="checkdata"></div>
           <div id="notfound1"></div>
         </div>
@@ -68,11 +72,19 @@
         let activeTag;
         let falseTag;
 
-        function registerSearch(){
-            activeTag = 'registerData';
+        function registerSearchName(){
+            activeTag = 'registerDataName';
             falseTag = 'notfound1';
-            let keyword = document.getElementById('registerData').value.replace(/　/g," ");
-            google.script.run.withSuccessHandler(displayAPIResult).withFailureHandler(console.log("error")).getRegisterSearch(keyword);
+            let keyword = document.getElementById('registerDataName').value.replace(/　/g," ");
+            console.log(keyword);
+            google.script.run.withSuccessHandler(displayAPIResult).withFailureHandler(console.log("error")).getRegisterSearch(keyword,"name");
+        }
+
+        function registerSearchTel(){
+            activeTag = 'registerDataTel';
+            falseTag = 'notfound1';
+            let keyword = document.getElementById('registerDataTel').value.replace(/　/g," ");
+            google.script.run.withSuccessHandler(displayAPIResult).withFailureHandler(console.log("error")).getRegisterSearch(keyword,"tel");
         }
 
         function randomSearch(){
@@ -112,9 +124,9 @@
                 tr.appendChild(td);
             }
           }
-          if(activeTag === 'registerData'){
+          if(activeTag.indexOf('registerData')){
             const checkDiv = document.getElementById("checkdata");
-            checkDiv.innerHTML = '<h5>登録する店名は<br> '+apiResult[0]["name"]+' <br>で合っていますか?</h5>';
+            checkDiv.innerHTML = '<h5>登録する店は<br> '+apiResult[0]["name"]+' <br>で合っていますか?</h5>';
           } 
         }
       }
