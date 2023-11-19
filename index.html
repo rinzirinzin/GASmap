@@ -23,8 +23,8 @@
 
     <div class="tab">
 
-      <!-- 初期状態で表示されるコンテンツに対応するラジオボタンにはchecked="checkedを設   定する -->
-      <input id="menu1" class="tab-input" name="menu" type="radio"    checked="checked">
+      <!-- 初期状態で表示されるコンテンツに対応するラジオボタンにはchecked="checkedを設定する -->
+      <input id="menu1" class="tab-input" name="menu" type="radio" checked="checked">
       <label for="menu1" class="tab-item">登録</label>
       <div class="tab-content">
         <div style="text-align: center; margin: 20px;">
@@ -75,7 +75,7 @@
 
         <div class="row">
           <label for="storename">店名:</label>
-          <div id="storename"></div>
+          <div id="storename" value="storename"></div>
         </div>
         
         <div class="row">
@@ -85,15 +85,15 @@
 
         <div class="row">
           <label for="release">全体公開:</label>
-          <input type="radio" id="releaseChoice1" name="contact" value="releaseok" checked>
+          <input type="radio" id="releaseChoice1" name="releasechk" value="releaseok" checked>
           <label for="releaseChoice1">する</label>
-          <input type="radio" id="releaseChoice2" name="contact" value="releaseng">
+          <input type="radio" id="releaseChoice2" name="releasechk" value="releaseng">
           <label for="releaseChoice2">しない</label>
         </div>
 
         <menu style="text-align: center">
           <button id="cancel" type="reset" onclick="closeDialog()">キャンセル</button>
-          <button id="confirm" type="submit">登録</button>
+          <button id="confirm" type="submit" onclick="registerData()">登録</button>
         </menu>
 
     </dialog>
@@ -108,6 +108,8 @@
             falseTag = 'notfound1';
             let keyword = document.getElementById('registerDataName').value.replace(/　/g," ");
             console.log(keyword);
+            let comment = document.getElementById('comment');
+            comment.value = "";
             google.script.run.withSuccessHandler(displayAPIResult).withFailureHandler(console.log("error")).getRegisterSearch(keyword,"name");
         }
 
@@ -115,6 +117,8 @@
             activeTag = 'registerDataTel';
             falseTag = 'notfound1';
             let keyword = document.getElementById('registerDataTel').value.replace(/　/g," ");
+            let comment = document.getElementById('comment');
+            comment.value = "";
             google.script.run.withSuccessHandler(displayAPIResult).withFailureHandler(console.log("error")).getRegisterSearch(keyword,"tel");
         }
 
@@ -125,6 +129,22 @@
             //let keyword = "品川";
             console.log(keyword);
             google.script.run.withSuccessHandler(displayAPIResult).withFailureHandler(console.log("error")).getRandomSearch(keyword);
+        }
+
+        function registerData(){
+            let storename = document.getElementById('storename');
+            let comment = document.getElementById('comment');
+            let releaseCheck = document.getElementsByName('releasechk');
+            let checkValue = "";
+            for(let i = 0; i < releaseCheck.length; i++){
+                if(releaseCheck.item(i).checked){
+                    checkValue = releaseCheck.item(i).value;
+                }
+            }
+            console.log("デバッグ");
+            console.log(storename.innerText);
+            console.log(comment.value);
+            console.log(checkValue);
         }
 
     </script>
@@ -168,12 +188,12 @@
       }
 
       function showDialog(){
-        dialog = document.querySelector('#registerdialog');
+        let dialog = document.querySelector('#registerdialog');
         dialog.showModal();
       }
 
       function closeDialog(){
-        dialog = document.querySelector('#registerdialog');
+        let dialog = document.querySelector('#registerdialog');
         dialog.close();
       }
 
