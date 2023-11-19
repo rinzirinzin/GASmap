@@ -19,6 +19,7 @@
 
     <?!= include('map.html'); ?>
     <?!= include('css.html'); ?>
+    
 
     <div class="tab">
 
@@ -52,7 +53,8 @@
 
       <input id="menu3" class="tab-input" name="menu" type="radio">
       <label for="menu3" class="tab-item">削除</label>
-      <div class="tab-content">コンテンツ3</div>
+      <div class="tab-content">コンテンツ3
+      </div>
 
     </div>   
 
@@ -74,16 +76,27 @@
           <label for="storename">店名:</label>
           <div id="storename"></div>
         </div>
+        
         <div class="row">
           <label for="comment">コメント:</label>
           <textarea id="comment" name="comment"></textarea>
         </div>
+
+        <div class="row">
+          <label for="release">全体公開:</label>
+          <input type="radio" id="releaseChoice1" name="contact" value="releaseok">
+          <label for="releaseChoice1">する</label>
+          <input type="radio" id="releaseChoice2" name="contact" value="releaseng">
+          <label for="releaseChoice2">しない</label>
+        </div>
+
         <menu>
           <button id="cancel" type="reset">キャンセル</button>
           <button id="confirm" type="submit">登録</button>
         </menu>
       </form>
     </dialog>
+
 
     <script>
         let activeTag;
@@ -159,8 +172,6 @@
       }
 
     </script>
-
-
 
     </body>
 </html>
