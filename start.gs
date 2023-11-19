@@ -14,7 +14,7 @@ function getUser_() {
 
     //ユーザーが管理者かを判断する
 
-    return {email};
+    return email;
     //return {email, name: name.fullName, type: description, organization: department, thumbnailUrl: thumbnailPhotoUrl};
 }
 
@@ -34,14 +34,13 @@ function getDataSet() {
     })
 }
 
+
 //データをスプレッドシートに反映
-/*　要書き換え */
-function submitReserveTime(reserveDay,reserveStartTime,reserveEndTime,reserveRoom,reserveState,comment) {
+function registReview(storename,link,latitude,longitude,comment,release) {
     const user = getUser_();
     const id = Utilities.getUuid();
-    const ReserveData = [reserveDay,reserveStartTime,reserveEndTime,reserveRoom,user.email,reserveState,comment,id,new Date()];
-    getSheet_().appendRow(ReserveData);
-    submitGoogleCalendar(ReserveData);
+    const ReserveData = [storename,link,latitude,longitude,comment,user,release,id,new Date()];
+    getSheet_(MAPDATA_SHEET_NAME).appendRow(ReserveData);
     return 0;
 }
 
@@ -56,6 +55,30 @@ function shuffle(array) {
 
 const URL = 'http://webservice.recruit.co.jp/hotpepper/gourmet/v1/';
 const API_KEY = "APIキー";
+
+//データを登録する
+function reflectionData(storename,comment,checkValue) {
+    const URL_tmp = URL + '?key=' + API_KEY + '&name=' + storename + "&format=json" + "&count=1";
+    let response = UrlFetchApp.fetch(URL_tmp);
+    var responseData = JSON.parse(response.getContentText());
+    const shopData = responseData["results"]["shop"][0];
+    //登録失敗
+    if(responseData["results"]["shop"].length === 0){
+        return false;
+    }
+    //name	link	latitude	longitude	comment	user	release
+    let link = shopData["urls"]["pc"];
+    let latitude = shopData["lat"];
+    let longitude = shopData["lng"];
+    let release;
+    if (checkValue === "releaseok") {
+        release = true;
+    } else {
+        release = false;
+    }
+    registReview(storename,link,latitude,longitude,comment,release);
+    return true;
+}
 
 //リクルートAPIからランダムに店を探す
 function getRandomSearch(keyword) {

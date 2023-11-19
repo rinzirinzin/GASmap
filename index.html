@@ -98,7 +98,6 @@
 
     </dialog>
 
-
     <script>
         let activeTag;
         let falseTag;
@@ -110,7 +109,7 @@
             console.log(keyword);
             let comment = document.getElementById('comment');
             comment.value = "";
-            google.script.run.withSuccessHandler(displayAPIResult).withFailureHandler(console.log("error")).getRegisterSearch(keyword,"name");
+            google.script.run.withSuccessHandler(displayAPIResult).withFailureHandler(handleError).getRegisterSearch(keyword,"name");
         }
 
         function registerSearchTel(){
@@ -119,7 +118,7 @@
             let keyword = document.getElementById('registerDataTel').value.replace(/　/g," ");
             let comment = document.getElementById('comment');
             comment.value = "";
-            google.script.run.withSuccessHandler(displayAPIResult).withFailureHandler(console.log("error")).getRegisterSearch(keyword,"tel");
+            google.script.run.withSuccessHandler(displayAPIResult).withFailureHandler(handleError).getRegisterSearch(keyword,"tel");
         }
 
         function randomSearch(){
@@ -128,12 +127,12 @@
             let keyword = document.getElementById(activeTag).value.replace(/　/g," ");//全角スペースを半角スペースに;
             //let keyword = "品川";
             console.log(keyword);
-            google.script.run.withSuccessHandler(displayAPIResult).withFailureHandler(console.log("error")).getRandomSearch(keyword);
+            google.script.run.withSuccessHandler(displayAPIResult).withFailureHandler(handleError).getRandomSearch(keyword);
         }
 
         function registerData(){
-            let storename = document.getElementById('storename');
-            let comment = document.getElementById('comment');
+            let storename = document.getElementById('storename').innerText;
+            let comment = document.getElementById('comment').value;
             let releaseCheck = document.getElementsByName('releasechk');
             let checkValue = "";
             for(let i = 0; i < releaseCheck.length; i++){
@@ -142,9 +141,15 @@
                 }
             }
             console.log("デバッグ");
-            console.log(storename.innerText);
-            console.log(comment.value);
+            console.log(storename);
+            console.log(comment);
             console.log(checkValue);
+            google.script.run.withSuccessHandler(displayRegisterResult).withFailureHandler(handleError).reflectionData(storename,comment,checkValue);
+            console.log("なぜここに")
+        }
+
+        function handleError(error) {
+            console.log("エラーが発生しました:", error);
         }
 
     </script>
@@ -185,6 +190,11 @@
             //ダイアログ表示ボタンでも載せておく。
           } 
         }
+      }
+
+      //登録完了を表示
+      function displayRegisterResult(apiResult){
+        console.log(apiResult);
       }
 
       function showDialog(){
