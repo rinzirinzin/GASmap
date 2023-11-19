@@ -34,6 +34,17 @@ function getDataSet() {
     })
 }
 
+//データをスプレッドシートに反映
+/*　要書き換え */
+function submitReserveTime(reserveDay,reserveStartTime,reserveEndTime,reserveRoom,reserveState,comment) {
+    const user = getUser_();
+    const id = Utilities.getUuid();
+    const ReserveData = [reserveDay,reserveStartTime,reserveEndTime,reserveRoom,user.email,reserveState,comment,id,new Date()];
+    getSheet_().appendRow(ReserveData);
+    submitGoogleCalendar(ReserveData);
+    return 0;
+}
+
 //配列のシャッフル
 function shuffle(array) {
     for (let i = array.length - 1; i > 0; i--) {

@@ -19,7 +19,6 @@
 
     <?!= include('map.html'); ?>
     <?!= include('css.html'); ?>
-    
 
     <div class="tab">
 
@@ -67,6 +66,20 @@
       </thead>
       <tbody id="playerList"></tbody>  <!-- ここに配列の中身を表示させる -->
     </table>
+
+    <dialog id="dialog">
+      <form id="form" method="dialog">
+        <h2>登録フォーム</h2>
+        <div class="row">
+          <label for="comment">コメント:</label>
+          <textarea id="comment" name="comment"></textarea>
+        </div>
+        <menu>
+          <button id="cancel" type="reset">キャンセル</button>
+          <button id="confirm" type="submit">登録</button>
+        </menu>
+      </form>
+    </dialog>
 
     <script>
         let activeTag;
@@ -127,10 +140,19 @@
           if(activeTag.indexOf('registerData')){
             const checkDiv = document.getElementById("checkdata");
             checkDiv.innerHTML = '<h5>登録する店は<br> '+apiResult[0]["name"]+' <br>で合っていますか?</h5>';
+            checkDiv.innerHTML += '<button onclick="showDialog()">OK</button>';
           } 
         }
       }
+
+      function showDialog(){
+        dialog = document.querySelector('dialog');
+        dialog.showModel();
+      }
+
     </script>
+
+
 
     </body>
 </html>
