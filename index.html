@@ -69,9 +69,10 @@
       <tbody id="playerList"></tbody>  <!-- ここに配列の中身を表示させる -->
     </table>
 
-    <dialog id="dialog">
-      <form id="form" method="dialog">
-        <h2>登録フォーム</h2>
+    <dialog id="registerdialog">
+
+        <h2 style="text-align: center">登録フォーム</h2>
+
         <div class="row">
           <label for="storename">店名:</label>
           <div id="storename"></div>
@@ -84,17 +85,17 @@
 
         <div class="row">
           <label for="release">全体公開:</label>
-          <input type="radio" id="releaseChoice1" name="contact" value="releaseok">
+          <input type="radio" id="releaseChoice1" name="contact" value="releaseok" checked>
           <label for="releaseChoice1">する</label>
           <input type="radio" id="releaseChoice2" name="contact" value="releaseng">
           <label for="releaseChoice2">しない</label>
         </div>
 
-        <menu>
-          <button id="cancel" type="reset">キャンセル</button>
+        <menu style="text-align: center">
+          <button id="cancel" type="reset" onclick="closeDialog()">キャンセル</button>
           <button id="confirm" type="submit">登録</button>
         </menu>
-      </form>
+
     </dialog>
 
 
@@ -167,8 +168,13 @@
       }
 
       function showDialog(){
-        dialog = document.querySelector('dialog');
+        dialog = document.querySelector('#registerdialog');
         dialog.showModal();
+      }
+
+      function closeDialog(){
+        dialog = document.querySelector('#registerdialog');
+        dialog.close();
       }
 
     </script>
