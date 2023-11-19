@@ -71,6 +71,10 @@
       <form id="form" method="dialog">
         <h2>登録フォーム</h2>
         <div class="row">
+          <label for="storename">店名:</label>
+          <div id="storename"></div>
+        </div>
+        <div class="row">
           <label for="comment">コメント:</label>
           <textarea id="comment" name="comment"></textarea>
         </div>
@@ -137,17 +141,21 @@
                 tr.appendChild(td);
             }
           }
-          if(activeTag.indexOf('registerData')){
+
+          if(activeTag.includes('registerData')){
             const checkDiv = document.getElementById("checkdata");
-            checkDiv.innerHTML = '<h5>登録する店は<br> '+apiResult[0]["name"]+' <br>で合っていますか?</h5>';
+            checkDiv.innerHTML = '<h5>登録する店は '+apiResult[0]["name"]+' で合っていますか?</h5>';
             checkDiv.innerHTML += '<button onclick="showDialog()">OK</button>';
+            const storenameDiv = document.getElementById("storename");
+            storenameDiv.innerHTML = apiResult[0]["name"];
+            //ダイアログ表示ボタンでも載せておく。
           } 
         }
       }
 
       function showDialog(){
         dialog = document.querySelector('dialog');
-        dialog.showModel();
+        dialog.showModal();
       }
 
     </script>
