@@ -98,6 +98,40 @@
 
     </dialog>
 
+    <dialog id="successdialog">
+        <h2 style="text-align: center">登録が完了しました。</h2>
+        <h4 style="text-align: center">ページを再読み込みしてください。</h4>
+    </dialog>
+
+    <dialog id="failuredialog">
+        <h2 style="text-align: center">予期せぬエラーで登録が失敗しました。</h2>
+        <h4 style="text-align: center">管理者にお問い合わせください。</h4>
+    </dialog>
+
+    <dialog id="storeinfodialog">
+
+        <div class="row">
+          <label for="storenamemap">店名:</label>
+          <div id="storenamemap" value="storenamemap"></div>
+        </div>
+
+        <div class="row">
+          <label for="storeaddress">住所:</label>
+          <div id="storeaddress" value="storeaddress"></div>
+        </div>
+
+        <div class="row">
+          <label for="storecatch">キャッチ:</label>
+          <div id="storecatch" value="storecatch"></div>
+        </div>
+
+        <div class="row">
+          <label for="storecomment" style="white-space: nowrap">コメント:</label>
+          <div id="storecomment" value="storecomment"></div>
+        </div>
+  
+    </dialog>
+
     <script>
         let activeTag;
         let falseTag;
@@ -145,7 +179,6 @@
             console.log(comment);
             console.log(checkValue);
             google.script.run.withSuccessHandler(displayRegisterResult).withFailureHandler(handleError).reflectionData(storename,comment,checkValue);
-            console.log("なぜここに")
         }
 
         function handleError(error) {
@@ -194,7 +227,16 @@
 
       //登録完了を表示
       function displayRegisterResult(apiResult){
-        console.log(apiResult);
+        //console.log(apiResult);
+        let dialog = document.querySelector('#registerdialog');
+        dialog.close();
+        let resultdialog = "";
+        if(apiResult){
+          resultdialog = document.querySelector('#successdialog');
+        } else {
+          resultdialog = document.querySelector('#failuredialog');
+        }
+        resultdialog.showModal();
       }
 
       function showDialog(){
@@ -205,6 +247,21 @@
       function closeDialog(){
         let dialog = document.querySelector('#registerdialog');
         dialog.close();
+      }
+
+      function buttonClick(buttonId) {
+        console.log('ボタン ' + buttonId + ' が押されました！');
+        // ここで必要な処理を行う
+        for(let i = 0; i < mapData.length; i++){
+            if (mapData[i]["id"] === buttonId){
+                let dialog = document.querySelector('#storeinfodialog');
+                const storenameDiv = document.getElementById("storenamemap");
+                storenameDiv.innerHTML = mapData[i]["name"];
+                const storecommentDiv = document.getElementById("storecomment");
+                storecommentDiv.innerHTML = "・"+ mapData[i]["comment"];
+                dialog.showModal();
+            };
+        }
       }
 
     </script>

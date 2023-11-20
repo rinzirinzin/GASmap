@@ -29,8 +29,10 @@ const MAPDATA_SHEET_NAME = "登録データ";
 function getDataSet() {
     const sheet = getSheet_(MAPDATA_SHEET_NAME);
     return sheet.getDataRange().getValues().slice(1).map(row => {
-        const [name,link,latitude,longitude,comment,user,release] = row;
-        return {name,link,latitude,longitude,comment,user,release}
+        const [name,link,latitude,longitude,comment,user,release,id,date] = row;
+        //日付を文字列に変換(こうしないとnullになっちまう)
+        const formattedDate = date instanceof Date ? date.toLocaleString() : null;
+        return {name,link,latitude,longitude,comment,user,release,id,formattedDate}
     })
 }
 
