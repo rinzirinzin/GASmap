@@ -20,7 +20,6 @@
     <?!= include('map.html'); ?>
     <?!= include('css.html'); ?>
     
-
     <div class="tab">
 
       <!-- 初期状態で表示されるコンテンツに対応するラジオボタンにはchecked="checkedを設定する -->
@@ -121,12 +120,12 @@
         </div>
 
         <div class="row">
-          <label for="storecatch">キャッチ:</label>
-          <div id="storecatch" value="storecatch"></div>
+          <label for="storestation">最寄り駅:</label>
+          <div id="storestation" value="storestation"></div>
         </div>
 
         <div class="row">
-          <label for="storecomment" style="white-space: nowrap">コメント:</label>
+          <label for="storecomment">コメント:</label>
           <div id="storecomment" value="storecomment"></div>
         </div>
   
@@ -214,7 +213,7 @@
             }
           }
 
-          if(activeTag.includes('registerData')){
+           if(activeTag.includes('registerData')){
             const checkDiv = document.getElementById("checkdata");
             checkDiv.innerHTML = '<h5>登録する店は '+apiResult[0]["name"]+' で合っていますか?</h5>';
             checkDiv.innerHTML += '<button onclick="showDialog()">OK</button>';
@@ -256,7 +255,11 @@
             if (mapData[i]["id"] === buttonId){
                 let dialog = document.querySelector('#storeinfodialog');
                 const storenameDiv = document.getElementById("storenamemap");
-                storenameDiv.innerHTML = mapData[i]["name"];
+                storenameDiv.innerHTML = "<a href='" + mapData[i]['link'] + "' target='_blank'>" + mapData[i]["name"] + "</a>";
+                const storeaddressDiv = document.getElementById("storeaddress");
+                storeaddressDiv.innerHTML = mapData[i]["address"];
+                const storestationDiv = document.getElementById("storestation");
+                storestationDiv.innerHTML = mapData[i]["station"];
                 const storecommentDiv = document.getElementById("storecomment");
                 storecommentDiv.innerHTML = "・"+ mapData[i]["comment"];
                 dialog.showModal();

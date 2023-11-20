@@ -29,19 +29,19 @@ const MAPDATA_SHEET_NAME = "登録データ";
 function getDataSet() {
     const sheet = getSheet_(MAPDATA_SHEET_NAME);
     return sheet.getDataRange().getValues().slice(1).map(row => {
-        const [name,link,latitude,longitude,comment,user,release,id,date] = row;
+        const [name,link,address,stationname,latitude,longitude,comment,user,release,id,date] = row;
         //日付を文字列に変換(こうしないとnullになっちまう)
         const formattedDate = date instanceof Date ? date.toLocaleString() : null;
-        return {name,link,latitude,longitude,comment,user,release,id,formattedDate}
+        return {name,link,address,stationname,latitude,longitude,comment,user,release,id,formattedDate}
     })
 }
 
 
 //データをスプレッドシートに反映
-function registReview(storename,link,latitude,longitude,comment,release) {
+function registReview(storename,link,address,stationname,latitude,longitude,comment,release) {
     const user = getUser_();
     const id = Utilities.getUuid();
-    const ReserveData = [storename,link,latitude,longitude,comment,user,release,id,new Date()];
+    const ReserveData = [storename,link,address,stationname,latitude,longitude,comment,user,release,id,new Date()];
     getSheet_(MAPDATA_SHEET_NAME).appendRow(ReserveData);
     return 0;
 }
@@ -70,6 +70,8 @@ function reflectionData(storename,comment,checkValue) {
     }
     //name	link	latitude	longitude	comment	user	release
     let link = shopData["urls"]["pc"];
+    let address = shopData["address"];
+    let stationname = shopData["station_name"];
     let latitude = shopData["lat"];
     let longitude = shopData["lng"];
     let release;
@@ -78,7 +80,8 @@ function reflectionData(storename,comment,checkValue) {
     } else {
         release = false;
     }
-    registReview(storename,link,latitude,longitude,comment,release);
+
+    registReview(storename,link,address,stationname,latitude,longitude,comment,release);
     return true;
 }
 

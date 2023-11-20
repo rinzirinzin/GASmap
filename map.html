@@ -1,20 +1,5 @@
 <script>
 
-    /*const data = [{
-        name : '店の名前',
-        link : "https://example.com/",
-        latitude : 37.508106,
-        longitude : 139.93023,
-        comment : "焼き鳥って言うのに、焼き牛とは言わないんだね。",
-        user : "hogeman",
-        release : true
-    }]*/
-
-    //マーカーのポップアップ
-        //店名
-        //場所
-        //詳細情報のボタン
-
     let mapData = [];
 
     //地図上にマーカーを追加
@@ -30,6 +15,8 @@
                 "name": data[i]["name"],
                 "catch": data[i]["catch"],
                 "link": data[i]["link"],
+                "address" : data[i]["address"],
+                "station" : data[i]["stationname"],
                 "comment" : data[i]["comment"],
                 "id" : data[i]["id"]
             };
