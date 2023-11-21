@@ -27,15 +27,16 @@
             mapData.push(tmpObj);
 
             //リリースの判定をここに書く
+            if(tmpObj["release"] === true || tmpObj["user"] === loginUser) {
+                button = '<br><button name="button" onclick="buttonClick(\'' + data[i]["id"] + '\')">詳細情報</button>';
+                //button = '<br><button name="button" onclick="buttonClick("'+data[i]["id"]+'")">詳細情報</button>';
+                console.log(button);
+                content = L.popup().setContent(data[i]["name"] + button);
+                L.marker([data[i]["latitude"],data[i]["longitude"]]).addTo(map)
+                .bindPopup(content)
+                .openPopup();
+            }
 
-            button = '<br><button name="button" onclick="buttonClick(\'' + data[i]["id"] + '\')">詳細情報</button>';
-            //button = '<br><button name="button" onclick="buttonClick("'+data[i]["id"]+'")">詳細情報</button>';
-            console.log(button);
-            content = L.popup().setContent(data[i]["name"] + button);
-            L.marker([data[i]["latitude"],data[i]["longitude"]]).addTo(map)
-            .bindPopup(content)
-            .openPopup();
-            //.bindPopup(data[i]["comment"])
         }
 
       // 地図の中心座標とズームレベルを設定する
