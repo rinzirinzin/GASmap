@@ -213,7 +213,7 @@
             }
           }
 
-           if(activeTag.includes('registerData')){
+          if(activeTag.includes('registerData')){
             const checkDiv = document.getElementById("checkdata");
             checkDiv.innerHTML = '<h5>登録する店は '+apiResult[0]["name"]+' で合っていますか?</h5>';
             checkDiv.innerHTML += '<button onclick="showDialog()">OK</button>';

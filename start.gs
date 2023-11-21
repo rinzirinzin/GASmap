@@ -18,6 +18,12 @@ function getUser_() {
     //return {email, name: name.fullName, type: description, organization: department, thumbnailUrl: thumbnailPhotoUrl};
 }
 
+//外部からアクセスするときの踏み台
+function includeUserInHTML() {
+    const user = getUser_();
+    return user;
+}
+
 //SHEET_NAMEのシートを取得
 function getSheet_(SHEET_NAME) {
     return SpreadsheetApp.getActive().getSheetByName(SHEET_NAME);
