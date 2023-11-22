@@ -2,6 +2,7 @@
 
     let loginUser;
     let mapData = [];
+    let loginUserData = [];
 
     //地図上にマーカーを追加
     function addMarkerOnMap(data){
@@ -25,6 +26,9 @@
             };
 
             mapData.push(tmpObj);
+            if (tmpObj["user"] === loginUser) {
+                loginUserData.push(tmpObj);
+            }
 
             //リリースの判定をここに書く
             if(tmpObj["release"] === true || tmpObj["user"] === loginUser) {
@@ -39,6 +43,9 @@
 
         }
 
+      // ログインユーザーのデータを表示
+        createTable();
+        
       // 地図の中心座標とズームレベルを設定する
         map.setView([37.508106, 139.930239], 13);
         return 0;
@@ -53,7 +60,7 @@
                 console.log(datatest);
                 addMarkerOnMap(datatest);
             }
-        ).withFailureHandler(console.log("読み込み失敗")).getDataSet()
+        ).withFailureHandler(console.log("読み込み失敗")).getDataSet();
         return 0;
     }
 
@@ -69,17 +76,17 @@
     
     //ユーザー情報を取得する
     async function getLoginUser() {
-        return new Promise(resolve => {
+      return new Promise(resolve => {
         google.script.run.withSuccessHandler(function(userEmail) {
-            resolve(userEmail);
+          resolve(userEmail);
         }).includeUserInHTML();
-        });
+      });
     }
 
-    // DOMツリー構築完了時に、呼び出される。
+    // DOMツリー構築完了時に、呼び出される。(Initialize)
     document.addEventListener('DOMContentLoaded', async function() {
-        loginUser = await getLoginUser();
-        readMapData();
+      loginUser = await getLoginUser();
+      readMapData();
     });
 
 </script>

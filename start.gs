@@ -20,8 +20,8 @@ function getUser_() {
 
 //外部からアクセスするときの踏み台
 function includeUserInHTML() {
-    const user = getUser_();
-    return user;
+  const user = getUser_();
+  return user;
 }
 
 //SHEET_NAMEのシートを取得
