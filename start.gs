@@ -20,8 +20,8 @@ function getUser_() {
 
 //外部からアクセスするときの踏み台
 function includeUserInHTML() {
-  const user = getUser_();
-  return user;
+    const user = getUser_();
+    return user;
 }
 
 //SHEET_NAMEのシートを取得
@@ -86,7 +86,6 @@ function reflectionData(storename,comment,checkValue) {
     } else {
         release = false;
     }
-
     registReview(storename,link,address,stationname,latitude,longitude,comment,release);
     return true;
 }
@@ -106,13 +105,13 @@ function getRandomSearch(keyword) {
     let random = shuffle([...Array(responseData["results"]["shop"].length)].map((_, i) => i));
     console.log(responseData["results"]["shop"].length);
     for (let i = 0; i < Math.min(responseData["results"]["shop"].length,3); i++) {
-    const shopData = responseData["results"]["shop"][random[i]];
-    const resultObj = {
-        "name": shopData["name"],
-        "catch": shopData["catch"],
-        "urls": shopData["urls"]["pc"]
-    };
-    result.push(resultObj);
+        const shopData = responseData["results"]["shop"][random[i]];
+        const resultObj = {
+            "name": shopData["name"],
+            "catch": shopData["catch"],
+            "urls": shopData["urls"]["pc"]
+        };
+        result.push(resultObj);
     }
 
     console.log(result);
@@ -140,7 +139,8 @@ async function getRegisterSearch(keyword,swkey){
     const resultObj = {
         "name": shopData["name"],
         "catch": shopData["catch"],
-        "urls": shopData["urls"]["pc"]
+        "urls": shopData["urls"]["pc"],
+        "tel" : shopData["tel"]
     };
     result.push(resultObj);
     return result;

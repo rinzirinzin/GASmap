@@ -21,7 +21,7 @@
     <?!= include('css.html'); ?>
 
 
-    <div class="tab" style="width: 40%;">
+    <div class="tab" style="width: 600px;">
 
       <!-- 初期状態で表示されるコンテンツに対応するラジオボタンにはchecked="checkedを設定する -->
       <input id="menu1" class="tab-input" name="menu" type="radio" checked="checked">
@@ -56,7 +56,7 @@
       <div class="tab-content">
         <div style="text-align: center; margin: 20px;">
           <h4>あなたの記録</h4>
-            <table class="content-table">
+            <table class="content-table" >
               <thead>
                 <th>店名</th>
                 <th>コメント</th>
@@ -83,96 +83,94 @@
 
     <dialog id="registerdialog">
 
-        <h2 style="text-align: center">登録フォーム</h2>
+      <h2 style="text-align: center">登録フォーム</h2>
 
-        <div class="row">
-          <label for="storename">店名:</label>
-          <div id="storename" value="storename"></div>
-        </div>
+      <div class="row">
+        <label for="storename">店名:</label>
+        <div id="storename" value="storename"></div>
+      </div>
         
-        <div class="row">
-          <label for="comment">コメント:</label>
-          <textarea id="comment" name="comment"></textarea>
-        </div>
+      <div class="row">
+        <label for="comment">コメント:</label>
+        <textarea id="comment" name="comment"></textarea>
+      </div>
 
-        <div class="row">
-          <label for="release">全体公開:</label>
-          <input type="radio" id="releaseChoice1" name="releasechk" value="releaseok" checked>
-          <label for="releaseChoice1">する</label>
-          <input type="radio" id="releaseChoice2" name="releasechk" value="releaseng">
-          <label for="releaseChoice2">しない</label>
-        </div>
+      <div class="row">
+        <label for="release">全体公開:</label>
+        <input type="radio" id="releaseChoice1" name="releasechk" value="releaseok" checked>
+        <label for="releaseChoice1">する</label>
+        <input type="radio" id="releaseChoice2" name="releasechk" value="releaseng">
+        <label for="releaseChoice2">しない</label>
+      </div>
 
-        <menu style="text-align: center">
-          <button id="cancel" type="reset" onclick="closeDialog('#registerdialog')">キャンセル</button>
-          <button id="confirm" type="submit" onclick="registerData()">登録</button>
-        </menu>
+      <menu style="text-align: center">
+        <button id="cancel" type="reset" onclick="closeDialog('#registerdialog')">キャンセル</button>
+        <button id="confirm" type="submit" onclick="registerData()">登録</button>
+      </menu>
 
     </dialog>
 
     <dialog id="successdialog">
-        <h2 style="text-align: center">登録が完了しました。</h2>
-        <h4 style="text-align: center">ページを再読み込みしてください。</h4>
+      <h2 style="text-align: center">登録が完了しました。</h2>
+      <h4 style="text-align: center">ページを再読み込みしてください。</h4>
     </dialog>
 
     <dialog id="failuredialog">
-        <h2 style="text-align: center">予期せぬエラーで登録が失敗しました。</h2>
-        <h4 style="text-align: center">管理者にお問い合わせください。</h4>
+      <h2 style="text-align: center">予期せぬエラーで登録が失敗しました。</h2>
+      <h4 style="text-align: center">管理者にお問い合わせください。</h4>
     </dialog>
 
     <dialog id="storeinfodialog">
 
-        <div class="row">
-          <label for="storenamemap">店名:</label>
-          <div id="storenamemap" value="storenamemap"></div>
-        </div>
+      <div class="row">
+        <label for="storenamemap">店名:</label>
+        <div id="storenamemap" value="storenamemap"></div>
+      </div>
 
-        <div class="row">
-          <label for="storeaddress">住所:</label>
-          <div id="storeaddress" value="storeaddress"></div>
-        </div>
+      <div class="row">
+        <label for="storeaddress">住所:</label>
+        <div id="storeaddress" value="storeaddress"></div>
+      </div>
 
-        <div class="row">
-          <label for="storestation">最寄り駅:</label>
-          <div id="storestation" value="storestation"></div>
-        </div>
+      <div class="row">
+        <label for="storestation">最寄り駅:</label>
+        <div id="storestation" value="storestation"></div>
+      </div>
 
-        <div class="row">
-          <label for="storecomment">コメント:</label>
-          <div id="storecomment" value="storecomment"></div>
-        </div>
+      <div class="row">
+        <label for="storecomment">コメント:</label>
+        <div id="storecomment" value="storecomment"></div>
+      </div>
 
-        <menu style="text-align: center">
-          <button id="cancel" type="reset" onclick="closeDialog('#storeinfodialog')">閉じる</button>
-        </menu>
+      <menu style="text-align: center">
+        <button id="cancel" type="reset" onclick="closeDialog('#storeinfodialog')">閉じる</button>
+      </menu>
   
     </dialog>
     
     <script>
       function createTable(){
-        console.log("CreateTable");
-        console.log("配列",loginUserData);
-        const table = document.getElementById("myTable");
-        let button;
-        const order = ["name", "comment", "button"];
-
-        console.log(loginUserData.length);
-        console.log(order.length);
-
-        for(let i = 0; i < loginUserData.length; i++){
-            const tr = document.createElement("tr");
-            table.appendChild(tr);
-            for(let j = 0; j < order.length; j++){
-                const td = document.createElement("td");
-                if(order[j] === "button"){
-                    button = '<button name="button" onclick="buttonClick(\'' + loginUserData[i]["id"] + '\')">削除</button>';
-                    td.innerHTML = button;
-                } else {
-                    td.textContent = loginUserData[i][order[j]];
-                }
-                tr.appendChild(td);
-            }
-        }
+          console.log("CreateTable");
+          console.log("配列",loginUserData);
+          const table = document.getElementById("myTable");
+          let button;
+          const order = ["name", "comment", "button"];    
+          console.log(loginUserData.length);
+          console.log(order.length);    
+          for(let i = 0; i < loginUserData.length; i++){
+              const tr = document.createElement("tr");
+              table.appendChild(tr);
+              for(let j = 0; j < order.length; j++){
+                  const td = document.createElement("td");
+                  if(order[j] === "button"){
+                      button = '<button name="button" onclick="buttonClick(\'' + loginUserData[i]["id"] + '\')">削除</button>';
+                      td.innerHTML = button;
+                  } else {
+                      td.textContent = loginUserData[i][order[j]];
+                  }
+                  tr.appendChild(td);
+              }
+          }
       }
     </script>
 
@@ -218,10 +216,6 @@
                     checkValue = releaseCheck.item(i).value;
                 }
             }
-            console.log("デバッグ");
-            console.log(storename);
-            console.log(comment);
-            console.log(checkValue);
             google.script.run.withSuccessHandler(displayRegisterResult).withFailureHandler(handleError).reflectionData(storename,comment,checkValue);
         }
 
@@ -234,38 +228,36 @@
     <script>
       // APIの結果を表示する関数
       function displayAPIResult(apiResult) {
-        const playerList = document.getElementById("playerList");
-        const order = ["name", "catch", "urls"];
-        console.log(apiResult);
-        const falseDiv = document.getElementById(falseTag);
-        if(!apiResult){
-          falseDiv.innerHTML = '<h5>キーワード : '+document.getElementById(activeTag).value+'では見つかりませんでした...</h5>';
-        }else{
-          falseDiv.innerHTML ="";
-          for(let i = 0; i < apiResult.length; i++){
-            const tr = document.createElement("tr");
-            playerList.appendChild(tr);  
-            for(let j = 0; j < order.length; j++){
-                const td = document.createElement("td");
-                if(order[j] === "urls"){
-                  td.innerHTML = "<a href='"+apiResult[i][order[j]]+"' target='_blank'>リンク</a>";
-                }
-                else {
-                  td.textContent = apiResult[i][order[j]];
-                }
-                console.log(apiResult[i][order[j]],i,j);
-                tr.appendChild(td);
-            }
-          }
+          const playerList = document.getElementById("playerList");
+          const order = ["name", "catch", "urls"];
+          console.log(apiResult);
+          const falseDiv = document.getElementById(falseTag);
+          if(!apiResult){
+              falseDiv.innerHTML = '<h5>キーワード : '+document.getElementById(activeTag).value+'では見つかりませんでした...</h5>';
+          } else {
+              falseDiv.innerHTML ="";
+              for(let i = 0; i < apiResult.length; i++){
+                  const tr = document.createElement("tr");
+                  playerList.appendChild(tr);  
+                  for(let j = 0; j < order.length; j++){
+                      const td = document.createElement("td");
+                      if(order[j] === "urls"){
+                          td.innerHTML = "<a href='"+apiResult[i][order[j]]+"' target='_blank'>リンク</a>";
+                      } else {
+                          td.textContent = apiResult[i][order[j]];
+                      }
+                      console.log(apiResult[i][order[j]],i,j);
+                      tr.appendChild(td);
+                  }
+              }
 
-          if(activeTag.includes('registerData')){
-            const checkDiv = document.getElementById("checkdata");
-            checkDiv.innerHTML = '<h5>登録する店は '+apiResult[0]["name"]+' で合っていますか?</h5>';
-            checkDiv.innerHTML += '<button onclick="showDialog()">OK</button>';
-            const storenameDiv = document.getElementById("storename");
-            storenameDiv.innerHTML = apiResult[0]["name"];
-            //ダイアログ表示ボタンでも載せておく。
-          } 
+              if(activeTag.includes('registerData')){
+                  const checkDiv = document.getElementById("checkdata");
+                  checkDiv.innerHTML = '<h5>登録する店は '+apiResult[0]["name"]+' で合っていますか?</h5>';
+                  checkDiv.innerHTML += '<button onclick="showDialog()">OK</button>';
+                  const storenameDiv = document.getElementById("storename");
+                  storenameDiv.innerHTML = apiResult[0]["name"];
+              } 
         }
       }
 
@@ -276,9 +268,9 @@
         dialog.close();
         let resultdialog = "";
         if(apiResult){
-          resultdialog = document.querySelector('#successdialog');
+            resultdialog = document.querySelector('#successdialog');
         } else {
-          resultdialog = document.querySelector('#failuredialog');
+            resultdialog = document.querySelector('#failuredialog');
         }
         resultdialog.showModal();
       }

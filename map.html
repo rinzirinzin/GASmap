@@ -73,20 +73,19 @@
         attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
     }).addTo(map);
     
-    
     //ユーザー情報を取得する
     async function getLoginUser() {
-      return new Promise(resolve => {
+        return new Promise(resolve => {
         google.script.run.withSuccessHandler(function(userEmail) {
-          resolve(userEmail);
-        }).includeUserInHTML();
-      });
+            resolve(userEmail);
+            }).includeUserInHTML();
+        });
     }
 
     // DOMツリー構築完了時に、呼び出される。(Initialize)
     document.addEventListener('DOMContentLoaded', async function() {
-      loginUser = await getLoginUser();
-      readMapData();
+        loginUser = await getLoginUser();
+        readMapData();
     });
 
 </script>
