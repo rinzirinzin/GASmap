@@ -45,20 +45,22 @@ function getDataSet() {
 //スプレッドシートからデータを削除する
 function deleteSheetRows(id) {
     const sheet = getSheet_(MAPDATA_SHEET_NAME);
-    
     //idが一致する行を探索
     const data = sheet.getDataRange().getValues();
     const columnIndex = data[0].indexOf("id");
-    const deleteRow = "Error";
+    let deleteRow = -1;
     for(let i = 1; i < data.length; i++){
         if(data[i][columnIndex] === id) {
-            deleteRow = i;
+            deleteRow = i+1;
             break
         }
     }
     //削除
+    if(deleteRow < 0){
+      return false;
+    }
     sheet.deleteRow(deleteRow);
-    return 0;
+    return true;
 }
 
 //データをスプレッドシートに反映

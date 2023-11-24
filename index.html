@@ -120,13 +120,10 @@
       <h4 style="text-align: center">管理者にお問い合わせください。</h4>
     </dialog>
 
-    //データ削除確認ダイアログ
+    <!--データ削除確認ダイアログ-->
     <dialog id="deletecheckdialog">
       <h2 style="text-align: center">本当に削除しますか?</h2>
-      <menu id="deletebutton" style="text-align: center">
-        <!--<button id="deletecancel" type="reset" onclick="closeDialog('#deletecheckdialog')">キャンセル</button>
-        <button id="deleteconfirm" type="submit" onclick="deleteData()">削除</button>-->
-      </menu>
+      <menu id="deletebutton" style="text-align: center"></menu>
     </dialog>
 
     <dialog id="storeinfodialog">
@@ -324,6 +321,20 @@
 
       function deleteData(id) {
         console.log(id)
+        google.script.run.withSuccessHandler(displayDeleteComplete).withFailureHandler(handleError).deleteSheetRows(id);
+      }
+
+      //削除完了を表示
+      function displayDeleteComplete(apiResult){
+        let dialog = document.querySelector('#deletecheckdialog');
+        dialog.close();
+        let resultdialog = "";
+        if(apiResult){
+            resultdialog = document.querySelector('#successdialog');
+        } else {
+            resultdialog = document.querySelector('#failuredialog');
+        }
+        resultdialog.showModal();
       }
 
     </script>
