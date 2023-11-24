@@ -11,10 +11,14 @@
         <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
         integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
         crossorigin=""></script>
+        <!--https://fonts.google.com/specimen/Zen+Maru+Gothic?subset=japanese-->
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Zen+Maru+Gothic:wght@500&display=swap" rel="stylesheet">
     </head>
 
     <body>
-    <h1 style="text-align: center;">お食事処 掲示板</h1>
+    <h1>お食事処 掲示板</h1>
     <div id="map"></div>
 
     <?!= include('map.html'); ?>
@@ -207,7 +211,6 @@
             activeTag = 'randomKeyword';
             falseTag = 'notfound2';
             let keyword = document.getElementById(activeTag).value.replace(/　/g," ");//全角スペースを半角スペースに;
-            //let keyword = "品川";
             console.log(keyword);
             google.script.run.withSuccessHandler(displayAPIResult).withFailureHandler(handleError).getRandomSearch(keyword);
         }
