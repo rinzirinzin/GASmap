@@ -1,24 +1,24 @@
 <!DOCTYPE html>
 <html>
     <head>
-      <title id="title">お食事処 掲示板</title>
-      <meta charset="utf-8" />
-      <!--<meta name="viewport" content="width=device-width, initial-scale=1.0">-->
-      <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
-      integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
-      crossorigin=""/>
-      <!-- Make sure you put this AFTER Leaflet's CSS -->
-      <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
-      integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
-      crossorigin=""></script>
+        <title id="title">お食事処 掲示板</title>
+        <meta charset="utf-8" />
+        <!--<meta name="viewport" content="width=device-width, initial-scale=1.0">-->
+        <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+        integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
+        crossorigin=""/>
+        <!-- Make sure you put this AFTER Leaflet's CSS -->
+        <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+        integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
+        crossorigin=""></script>
     </head>
 
     <body>
-      <h1 style="text-align: center;">お食事処 掲示板</h1>
-      <div id="map"></div>
-      
-      <?!= include('map.html'); ?>
-      <?!= include('css.html'); ?>
+    <h1 style="text-align: center;">お食事処 掲示板</h1>
+    <div id="map"></div>
+
+    <?!= include('map.html'); ?>
+    <?!= include('css.html'); ?>
     </body>
 
     <div class="tab" style="width: 600px;">
@@ -120,6 +120,15 @@
       <h4 style="text-align: center">管理者にお問い合わせください。</h4>
     </dialog>
 
+    //データ削除確認ダイアログ
+    <dialog id="deletecheckdialog">
+      <h2 style="text-align: center">本当に削除しますか?</h2>
+      <menu id="deletebutton" style="text-align: center">
+        <!--<button id="deletecancel" type="reset" onclick="closeDialog('#deletecheckdialog')">キャンセル</button>
+        <button id="deleteconfirm" type="submit" onclick="deleteData()">削除</button>-->
+      </menu>
+    </dialog>
+
     <dialog id="storeinfodialog">
 
       <div class="row">
@@ -163,7 +172,7 @@
               for(let j = 0; j < order.length; j++){
                   const td = document.createElement("td");
                   if(order[j] === "button"){
-                      button = '<button name="button" onclick="buttonClick(\'' + loginUserData[i]["id"] + '\')">削除</button>';
+                      button = '<button name="button" onclick="deleteUserDataDialog(\'' + loginUserData[i]["id"] + '\')">削除</button>';
                       td.innerHTML = button;
                   } else {
                       td.textContent = loginUserData[i][order[j]];
@@ -302,6 +311,19 @@
                 dialog.showModal();
             };
         }
+      }
+
+      function deleteUserDataDialog(id) {
+        console.log('ボタン ' + id + ' が押されました！',"削除");
+        let dialog = document.querySelector('#deletecheckdialog');
+        const checkDiv = document.getElementById("deletebutton");
+        checkDiv.innerHTML = '<button id="deletecancel" type="reset" onclick="closeDialog(\'#deletecheckdialog\')">キャンセル</button>';
+        checkDiv.innerHTML += '<button name="button" onclick="deleteData(\'' + id + '\')">削除</button>';
+        dialog.showModal();
+      }
+
+      function deleteData(id) {
+        console.log(id)
       }
 
     </script>
