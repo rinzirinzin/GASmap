@@ -307,7 +307,13 @@
                 const storestationDiv = document.getElementById("storestation");
                 storestationDiv.innerHTML = mapData[i]["station"];
                 const storecommentDiv = document.getElementById("storecomment");
-                storecommentDiv.innerHTML = "・"+ mapData[i]["comment"];
+                storecommentDiv.innerHTML = "";
+                for(let j = 0; j < commentData[mapData[i]["name"]].length; j++){
+                    storecommentDiv.innerHTML += "・"+commentData[mapData[i]["name"]][j]["comment"];
+                    if(j !== commentData[mapData[i]["name"]].length-1){
+                        storecommentDiv.innerHTML += "<br>";
+                    }
+                }
                 dialog.showModal();
             };
         }

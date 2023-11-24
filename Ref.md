@@ -15,9 +15,9 @@
 
 ### デザイン系 
 * https://qreat.tech/2712/
+* https://fonts.google.com/
 
 ### Todo
-* 入力値がない時の処理
 * 同じ店名の情報確認 (\n+"comment")みたいな感じでやる？
 * 全体的なUI(特にテーブルの表示) + 幅
 

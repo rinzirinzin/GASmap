@@ -3,6 +3,15 @@
     let loginUser;
     let mapData = [];
     let loginUserData = [];
+    let commentData = [];
+
+    //連想配列をグループ化
+    const groupBy = function(xs, key) {
+      return xs.reduce(function(rv, x) {
+        (rv[x[key]] = rv[x[key]] || []).push(x);
+          return rv;
+       }, {});
+    };
 
     //地図上にマーカーを追加
     function addMarkerOnMap(data){
@@ -15,7 +24,6 @@
             //スプレッドシートの情報を配列に追加
             const tmpObj = {
                 "name": data[i]["name"],
-                "catch": data[i]["catch"],
                 "link": data[i]["link"],
                 "address" : data[i]["address"],
                 "station" : data[i]["stationname"],
@@ -43,6 +51,9 @@
 
         }
 
+      // コメントのデータを店名でグループ化する
+        commentData = groupBy(mapData, "name");
+        console.log(commentData);
       // ログインユーザーのデータを表示
         createTable();
         
