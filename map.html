@@ -33,13 +33,13 @@
                 "release" : data[i]["release"]
             };
 
-            mapData.push(tmpObj);
             if (tmpObj["user"] === loginUser) {
                 loginUserData.push(tmpObj);
             }
 
             //リリースの判定をここに書く
             if(tmpObj["release"] === true || tmpObj["user"] === loginUser) {
+                mapData.push(tmpObj);
                 button = '<br><button name="button" onclick="buttonClick(\'' + data[i]["id"] + '\')">詳細情報</button>';
                 //button = '<br><button name="button" onclick="buttonClick("'+data[i]["id"]+'")">詳細情報</button>';
                 console.log(button);
