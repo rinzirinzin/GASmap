@@ -23,9 +23,8 @@
 
     <?!= include('map.html'); ?>
     <?!= include('css.html'); ?>
-    </body>
 
-    <div class="tab" style="width: 600px;">
+    <div class="tab">
 
       <!-- 初期状態で表示されるコンテンツに対応するラジオボタンにはchecked="checkedを設定する -->
       <input id="menu1" class="tab-input" name="menu" type="radio" checked="checked">
@@ -52,6 +51,16 @@
           <input type="text" name="search" placeholder="キーワードを入力" id="randomKeyword">
           <button onclick="randomSearch()">スタート</button>
           <div id="notfound2"></div>
+          <table class="content-table">
+            <thead id="playerListhead"></thead>
+            <!--<tr>
+              <th>店名</th>
+              <th>キャッチコピー</th>
+              <th>サイト</th>
+            </tr>
+            </thead>-->
+            <tbody id="playerList"></tbody>  <!-- ここに配列の中身を表示させる -->
+          </table>
         </div>
       </div>
 
@@ -74,16 +83,14 @@
 
     </div>   
 
-    <table class="content-table">
-      <thead>
-        <tr>
-          <th>店名</th>
-          <th>キャッチコピー</th>
-          <th>サイト</th>
-        </tr>
-      </thead>
-      <tbody id="playerList"></tbody>  <!-- ここに配列の中身を表示させる -->
-    </table>
+    <div class = "credit">
+        <br>
+        <p style="font-family: Arial, Helvetica, sans-serif; text-align: center; margin-top: 10px;">Copyright : rinzirinzin. All rights reserved?... Thank you!</p>
+        <br>
+    </div>
+
+    </body>
+
 
     <dialog id="registerdialog">
 
@@ -172,6 +179,8 @@
               table.appendChild(tr);
               for(let j = 0; j < order.length; j++){
                   const td = document.createElement("td");
+                  td.id = "mycomment";
+                  console.log(td);
                   if(order[j] === "button"){
                       button = '<button name="button" onclick="deleteUserDataDialog(\'' + loginUserData[i]["id"] + '\')">削除</button>';
                       td.innerHTML = button;
@@ -245,6 +254,29 @@
               falseDiv.innerHTML = '<h5>キーワード : '+document.getElementById(activeTag).value+'では見つかりませんでした...</h5>';
           } else {
               falseDiv.innerHTML ="";
+              const tableHeader = document.getElementById("playerListhead");
+              tableHeader.innerHTML = "";
+
+              // 新しい行を作成
+              const tableRow = document.createElement("tr");
+
+              // セルを作成して行に追加
+              const cell1 = document.createElement("th");
+              cell1.textContent = "店名";
+              tableRow.appendChild(cell1);
+
+              const cell2 = document.createElement("th");
+              cell2.textContent = "キャッチコピー";
+              tableRow.appendChild(cell2);
+
+              const cell3 = document.createElement("th");
+              cell3.textContent = "サイト";
+              tableRow.appendChild(cell3);
+
+              // 行をテーブルヘッダーに追加
+              tableHeader.appendChild(tableRow);
+
+
               for(let i = 0; i < apiResult.length; i++){
                   const tr = document.createElement("tr");
                   playerList.appendChild(tr);  
