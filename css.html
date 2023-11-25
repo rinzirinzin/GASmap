@@ -22,13 +22,17 @@
 
   .content-table {
     white-space: nowrap;
-    width: 500px;
+    width: 600px;
+
+    overflow: hidden; /* ハミ出した部分を隠す */
+    text-overflow: ellipsis; /* 「…」と省略 */
+
     border-collapse: collapse;
     margin: 25px auto;
     font-size: 12px;
     border-radius: 5px 5px 0 0;
-    overflow: hidden;
     box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+    table-layout: fixed; /* テーブルのレイアウトを固定 */
   }
   .content-table thead tr {
     background: #005498;
@@ -40,6 +44,8 @@
   .content-table td {
     padding: 12px 15px;
     background: none;
+    overflow: hidden;
+    text-overflow: ellipsis;
   }
   .content-table tbody tr {
     border-bottom: 1px solid #dddddd;
