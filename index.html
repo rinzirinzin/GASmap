@@ -246,7 +246,7 @@
     <script>
       // APIの結果を表示する関数
       function displayAPIResult(apiResult) {
-          const order = ["name", "catch", "urls"];
+          const order = ["name", "catch"];
           console.log(apiResult);
           const falseDiv = document.getElementById(falseTag);
           if(!apiResult){
@@ -280,9 +280,9 @@
               cell2.textContent = "キャッチコピー";
               tableRow.appendChild(cell2);
 
-              const cell3 = document.createElement("th");
+              /*const cell3 = document.createElement("th");
               cell3.textContent = "サイト";
-              tableRow.appendChild(cell3);
+              tableRow.appendChild(cell3);*/
 
               // 行をテーブルヘッダーに追加
               tableHeader.appendChild(tableRow);
@@ -293,8 +293,8 @@
                   playerList.appendChild(tr);  
                   for(let j = 0; j < order.length; j++){
                       const td = document.createElement("td");
-                      if(order[j] === "urls"){
-                          td.innerHTML = "<a href='"+apiResult[i][order[j]]+"' target='_blank'>リンク</a>";
+                      if(order[j] === "name"){
+                          td.innerHTML = "<a href='"+apiResult[i]["urls"]+"' target='_blank'>"+apiResult[i]["name"]+"</a>";
                       } else {
                           td.textContent = apiResult[i][order[j]];
                       }
