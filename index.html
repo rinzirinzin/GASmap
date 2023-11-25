@@ -246,7 +246,6 @@
     <script>
       // APIの結果を表示する関数
       function displayAPIResult(apiResult) {
-          const playerList = document.getElementById("playerList");
           const order = ["name", "catch", "urls"];
           console.log(apiResult);
           const falseDiv = document.getElementById(falseTag);
@@ -254,6 +253,18 @@
               falseDiv.innerHTML = '<h5>キーワード : '+document.getElementById(activeTag).value+'では見つかりませんでした...</h5>';
           } else {
               falseDiv.innerHTML ="";
+
+              if(activeTag.includes('registerData')){
+                  const checkDiv = document.getElementById("checkdata");
+                  checkDiv.innerHTML = '<h5>登録する店は '+apiResult[0]["name"]+' で合っていますか?</h5>';
+                  checkDiv.innerHTML += '<button onclick="showDialog()">OK</button>';
+                  const storenameDiv = document.getElementById("storename");
+                  storenameDiv.innerHTML = apiResult[0]["name"];
+              } else {
+
+              const playerList = document.getElementById("playerList");
+              playerList.innerHTML = "";
+
               const tableHeader = document.getElementById("playerListhead");
               tableHeader.innerHTML = "";
 
@@ -292,13 +303,8 @@
                   }
               }
 
-              if(activeTag.includes('registerData')){
-                  const checkDiv = document.getElementById("checkdata");
-                  checkDiv.innerHTML = '<h5>登録する店は '+apiResult[0]["name"]+' で合っていますか?</h5>';
-                  checkDiv.innerHTML += '<button onclick="showDialog()">OK</button>';
-                  const storenameDiv = document.getElementById("storename");
-                  storenameDiv.innerHTML = apiResult[0]["name"];
-              } 
+              }
+
         }
       }
 
