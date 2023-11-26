@@ -81,6 +81,52 @@
     border-bottom: 2px solid #005498;
   }
 
+  .comment-table {
+    white-space: nowrap;
+    width: 600px;
+
+    overflow: hidden; /* ハミ出した部分を隠す */
+    text-overflow: ellipsis; /* 「…」と省略 */
+
+    border-collapse: collapse;
+    margin: 25px auto;
+    font-size: 12px;
+    border-radius: 5px 5px 0 0;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+    table-layout: fixed; /* テーブルのレイアウトを固定 */
+
+  }
+
+  .comment-table thead tr {
+    background: #005498;
+    color: #ffffff;
+    text-align: center;
+    font-weight: bold;
+  }
+  .comment-table th,
+  .comment-table td {
+    font-size: 16px;
+    padding: 6px 7.5px;
+    background: none;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  .comment-table tbody tr {
+    /*font-size: 14px;
+    padding: 6px 7.5px;
+    border-bottom: 1px solid #dddddd;
+    transition: 0.8s all ease;
+    overflow: hidden;
+    text-overflow: ellipsis;*/
+  }
+  /*
+  .comment-table tbody tr:nth-of-type(even) {
+    background: #f3f3f3;
+  }
+  .comment-table tbody tr:last-of-type {
+    border-bottom: 2px solid #005498;
+  }*/
+
   /*https://yuntu-tek.com/tab-menu/*/
   * {
     box-sizing: border-box;

@@ -11,6 +11,7 @@
       <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
       integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
       crossorigin=""></script>
+      <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.0/jquery.js"></script>
       <!--https://fonts.google.com/specimen/Zen+Maru+Gothic?subset=japanese-->
       <link rel="preconnect" href="https://fonts.googleapis.com">
       <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -148,13 +149,16 @@
       </div>
 
       <div class="row">
-        <label for="storecomment">コメント:</label>
-        <div id="storecomment" value="storecomment"></div>
-        <!--<table class="content-table"
+        <!--<label for="storecomment">コメント:</label>-->
+        <!--<div id="storecomment" value="storecomment"></div>-->
+        <table class="comment-table">
+          <thead>
+            <th>コメント</th>
+          </thead>
           <tbody id="commentList">
             <tr id="storecomment"></tr>
           </tbody>
-        </table>-->
+        </table>
       </div>
 
       <menu style="text-align: center">
@@ -236,8 +240,7 @@
 
       //予期しないエラー
       function handleError(error) {
-        const errordialog = document.querySelector('#failuredialog');
-        errortdialog.showModal();
+        showDialog('#failuredialog');
         console.log(error);
       }
 
@@ -299,15 +302,13 @@
 
       //登録時の表示
       function displayRegisterResult(apiResult){
-        let dialog = document.querySelector('#registerdialog');
-        dialog.close();
+        closeDialog('#registerdialog');
         let resultdialog = "";
         if(apiResult){
-          resultdialog = document.querySelector('#successdialog');
+          showDialog('#successdialog');
         } else {
-          resultdialog = document.querySelector('#failuredialog');
+          showDialog('#failuredialog');
         }
-        resultdialog.showModal();
       }
 
       //ダイアログを表示
@@ -340,24 +341,24 @@
             //表示内容を要素に追加
             for(let j = 0; j < commentData[mapData[i]["name"]].length; j++){
               if(commentData[mapData[i]["name"]][j]["comment"] !== ""){
-                storecommentDiv.innerHTML += "・"+commentData[mapData[i]["name"]][j]["comment"];
-                if(j !== commentData[mapData[i]["name"]].length-1){
-                  storecommentDiv.innerHTML += "<br>";
-                }
+                const tr = document.createElement("tr");
+                storecommentDiv.appendChild(tr);
+                const td = document.createElement("td");
+                td.innerHTML = "・"+commentData[mapData[i]["name"]][j]["comment"];
+                tr.appendChild(td);
               }
             }
-            dialog.showModal();
-          };
+            showDialog('#storeinfodialog');
+          }
         }
       }
 
       //データ削除ダイアログの表示
       function deleteUserDataDialog(id) {
-        let dialog = document.querySelector('#deletecheckdialog');
         const checkDiv = document.getElementById("deletebutton");
         checkDiv.innerHTML = '<button id="deletecancel" type="reset" onclick="closeDialog(\'#deletecheckdialog\')">キャンセル</button>';
         checkDiv.innerHTML += '<button name="button" onclick="deleteData(\'' + id + '\')">　削除　</button>';
-        dialog.showModal();
+        showDialog('#deletecheckdialog');
       }
 
       //データ削除
@@ -367,15 +368,13 @@
 
       //削除完了を表示
       function displayDeleteComplete(apiResult){
-        let dialog = document.querySelector('#deletecheckdialog');
-        dialog.close();
+        closeDialog('#deletecheckdialog');
         let resultdialog = "";
         if(apiResult){
-          resultdialog = document.querySelector('#deletesuccessdialog');
+          showDialog('#deletesuccessdialog');
         } else {
-          resultdialog = document.querySelector('#failuredialog');
+          showDialog('#failuredialog');
         }
-        resultdialog.showModal();
       }
 
     </script>
