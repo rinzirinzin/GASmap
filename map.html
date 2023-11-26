@@ -1,116 +1,116 @@
 <script>
 
-  let loginUser; //ログインしているユーザー
-  let mapData = []; //地図に表示するデータ
-  let loginUserData = []; //ログインしているユーザーのデータ
-  let commentData = []; //お店のコメント
-
-  //連想配列をグループ化
-  const groupBy = function(xs, key) {
-    return xs.reduce(function(rv, x) {
-      (rv[x[key]] = rv[x[key]] || []).push(x);
-        return rv;
-     }, {});
-  };
-
-  //ユーザーの登録データを表示するテーブル
-  function createTable(){
-    const table = document.getElementById("myTable");
-    let button;
-    const order = ["name", "comment", "button"];    
-    for(let i = 0; i < loginUserData.length; i++){
-      const tr = document.createElement("tr");
-      table.appendChild(tr);
-      for(let j = 0; j < order.length; j++){
-        const td = document.createElement("td");
-        td.id = "mycomment";
-        if(order[j] === "button"){
-          button = '<button name="button" onclick="deleteUserDataDialog(\'' +loginUserData[i]["id"] + '\')">削除</button>';
-          td.innerHTML = button;
-        } else {
-          td.textContent = loginUserData[i][order[j]];
+    let loginUser; //ログインしているユーザー
+    let mapData = []; //地図に表示するデータ
+    let loginUserData = []; //ログインしているユーザーのデータ
+    let commentData = []; //お店のコメント
+  
+    //連想配列をグループ化
+    const groupBy = function(xs, key) {
+      return xs.reduce(function(rv, x) {
+        (rv[x[key]] = rv[x[key]] || []).push(x);
+          return rv;
+       }, {});
+    };
+  
+    //ユーザーの登録データを表示するテーブル
+    function createTable(){
+      const table = document.getElementById("myTable");
+      let button;
+      const order = ["name", "comment", "button"];    
+      for(let i = 0; i < loginUserData.length; i++){
+        const tr = document.createElement("tr");
+        table.appendChild(tr);
+        for(let j = 0; j < order.length; j++){
+          const td = document.createElement("td");
+          td.id = "mycomment";
+          if(order[j] === "button"){
+            button = '<button name="button" onclick="deleteUserDataDialog(\'' +loginUserData[i]["id"] + '\')">削除</button>';
+            td.innerHTML = button;
+          } else {
+            td.textContent = loginUserData[i][order[j]];
+          }
+          tr.appendChild(td);
         }
-        tr.appendChild(td);
       }
     }
-  }
-
-  //地図上にマーカーを追加
-  function addMarkerOnMap(data){
-    let content;
-    let button;
-    // マーカーを追加する
-    for (let i = 0; i < data.length; i++) {
-      //スプレッドシートの情報を配列に追加
-      const tmpObj = {
-        "name": data[i]["name"],
-        "link": data[i]["link"],
-        "address" : data[i]["address"],
-        "station" : data[i]["stationname"],
-        "comment" : data[i]["comment"],
-        "id" : data[i]["id"],
-        "user" : data[i]["user"],
-        "release" : data[i]["release"]
-      };
-
-      //ログインユーザーのデータのみ追加
-      if (tmpObj["user"] === loginUser) {
-        loginUserData.push(tmpObj);
+  
+    //地図上にマーカーを追加
+    function addMarkerOnMap(data){
+      let content;
+      let button;
+      // マーカーを追加する
+      for (let i = 0; i < data.length; i++) {
+        //スプレッドシートの情報を配列に追加
+        const tmpObj = {
+          "name": data[i]["name"],
+          "link": data[i]["link"],
+          "address" : data[i]["address"],
+          "station" : data[i]["stationname"],
+          "comment" : data[i]["comment"],
+          "id" : data[i]["id"],
+          "user" : data[i]["user"],
+          "release" : data[i]["release"]
+        };
+  
+        //ログインユーザーのデータのみ追加
+        if (tmpObj["user"] === loginUser) {
+          loginUserData.push(tmpObj);
+        }
+  
+        //リリースの判定をここに書く
+        if(tmpObj["release"] === true || tmpObj["user"] === loginUser) {
+          mapData.push(tmpObj);
+          button = '<br><button name="button" onclick="buttonClick(\'' + data[i]["id"] + '\')">詳細情報</button>';
+          content = L.popup().setContent(data[i]["name"] + button);
+          L.marker([data[i]["latitude"],data[i]["longitude"]]).addTo(map).bindPopup(content).openPopup();
+        }
+  
       }
-
-      //リリースの判定をここに書く
-      if(tmpObj["release"] === true || tmpObj["user"] === loginUser) {
-        mapData.push(tmpObj);
-        button = '<br><button name="button" onclick="buttonClick(\'' + data[i]["id"] + '\')">詳細情報</button>';
-        content = L.popup().setContent(data[i]["name"] + button);
-        L.marker([data[i]["latitude"],data[i]["longitude"]]).addTo(map).bindPopup(content).openPopup();
-      }
-
-    }
-
-    // コメントのデータを店名でグループ化する
-      commentData = groupBy(mapData, "name");
-    
-    // ログインユーザーのデータが格納されたテーブルを作成
-      createTable();
+  
+      // コメントのデータを店名でグループ化する
+        commentData = groupBy(mapData, "name");
       
-    // 地図の中心座標とズームレベルを設定する
-      map.setView([37.508106, 139.930239], 13);
+      // ログインユーザーのデータが格納されたテーブルを作成
+        createTable();
+        
+      // 地図の中心座標とズームレベルを設定する
+        map.setView([37.508106, 139.930239], 13);
+        return 0;
+    }
+  
+    //マーカーの情報をスプレッドシートから読み込む
+    function readMapData(){
+      google.script.run.withSuccessHandler(
+        function(datatest) {
+          addMarkerOnMap(datatest);
+        }
+      ).withFailureHandler(console.log("読み込み失敗")).getDataSet();
       return 0;
-  }
-
-  //マーカーの情報をスプレッドシートから読み込む
-  function readMapData(){
-    google.script.run.withSuccessHandler(
-      function(datatest) {
-        addMarkerOnMap(datatest);
-      }
-    ).withFailureHandler(console.log("読み込み失敗")).getDataSet();
-    return 0;
-  }
-
-  // 地図を作成する
-  var map = L.map('map');
-    
-  // タイルレイヤーを作成し、地図にセットする
-  L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
-    maxZoom: 19,
-    attribution: '&copy; <a href="http://www.openstreetmap.orgcopyright">OpenStreetMap</a>'
-  }).addTo(map);
-    
-  //ユーザー情報を取得する
-  async function getLoginUser() {
-    return new Promise(resolve => {
-    google.script.run.withSuccessHandler(function(userEmail) {
-      resolve(userEmail);
-      }).includeUserInHTML();
+    }
+  
+    // 地図を作成する
+    var map = L.map('map');
+      
+    // タイルレイヤーを作成し、地図にセットする
+    L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      maxZoom: 19,
+      attribution: '&copy; <a href="http://www.openstreetmap.orgcopyright">OpenStreetMap</a>'
+    }).addTo(map);
+      
+    //ユーザー情報を取得する
+    async function getLoginUser() {
+      return new Promise(resolve => {
+      google.script.run.withSuccessHandler(function(userEmail) {
+        resolve(userEmail);
+        }).includeUserInHTML();
+      });
+    }
+  
+    // DOMツリー構築完了時に、呼び出される。(Initialize)
+    document.addEventListener('DOMContentLoaded', async function() {
+      loginUser = await getLoginUser();
+      readMapData();
     });
-  }
-
-  // DOMツリー構築完了時に、呼び出される。(Initialize)
-  document.addEventListener('DOMContentLoaded', async function() {
-    loginUser = await getLoginUser();
-    readMapData();
-  });
-
-</script>
+  
+  </script>

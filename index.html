@@ -124,7 +124,7 @@
 
       <menu style="text-align: center">
         <button id="cancel" type="reset" onclick="closeDialog('#registerdialog')">キャンセル</button>
-        <button id="confirm" type="submit" onclick="registerData()">登録</button>
+        <button id="confirm" type="submit" onclick="registerData()">　登録　</button>
       </menu>
 
     </dialog>
@@ -150,6 +150,11 @@
       <div class="row">
         <label for="storecomment">コメント:</label>
         <div id="storecomment" value="storecomment"></div>
+        <!--<table class="content-table"
+          <tbody id="commentList">
+            <tr id="storecomment"></tr>
+          </tbody>
+        </table>-->
       </div>
 
       <menu style="text-align: center">
@@ -334,9 +339,11 @@
 
             //表示内容を要素に追加
             for(let j = 0; j < commentData[mapData[i]["name"]].length; j++){
-              storecommentDiv.innerHTML += "・"+commentData[mapData[i]["name"]][j]["comment"];
-              if(j !== commentData[mapData[i]["name"]].length-1){
-                storecommentDiv.innerHTML += "<br>";
+              if(commentData[mapData[i]["name"]][j]["comment"] !== ""){
+                storecommentDiv.innerHTML += "・"+commentData[mapData[i]["name"]][j]["comment"];
+                if(j !== commentData[mapData[i]["name"]].length-1){
+                  storecommentDiv.innerHTML += "<br>";
+                }
               }
             }
             dialog.showModal();
@@ -349,7 +356,7 @@
         let dialog = document.querySelector('#deletecheckdialog');
         const checkDiv = document.getElementById("deletebutton");
         checkDiv.innerHTML = '<button id="deletecancel" type="reset" onclick="closeDialog(\'#deletecheckdialog\')">キャンセル</button>';
-        checkDiv.innerHTML += '<button name="button" onclick="deleteData(\'' + id + '\')">削除</button>';
+        checkDiv.innerHTML += '<button name="button" onclick="deleteData(\'' + id + '\')">　削除　</button>';
         dialog.showModal();
       }
 
