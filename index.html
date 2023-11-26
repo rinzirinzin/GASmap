@@ -1,94 +1,105 @@
 <!DOCTYPE html>
 <html>
+    <!--Header-->
     <head>
-        <title id="title">お食事処 掲示板</title>
-        <meta charset="utf-8" />
-        <!--<meta name="viewport" content="width=device-width, initial-scale=1.0">-->
-        <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
-        integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
-        crossorigin=""/>
-        <!-- Make sure you put this AFTER Leaflet's CSS -->
-        <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
-        integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
-        crossorigin=""></script>
-        <!--https://fonts.google.com/specimen/Zen+Maru+Gothic?subset=japanese-->
-        <link rel="preconnect" href="https://fonts.googleapis.com">
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-        <link href="https://fonts.googleapis.com/css2?family=Zen+Maru+Gothic:wght@500&display=swap" rel="stylesheet">
-        <link rel="preconnect" href="https://fonts.googleapis.com">
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-        <link href="https://fonts.googleapis.com/css2?family=M+PLUS+1:wght@100;500&family=Zen+Maru+Gothic:wght@500&display=swap" rel="stylesheet">
+      <meta charset="utf-8" />
+      <!--<meta name="viewport" content="width=device-width, initial-scale=1.0">-->
+      <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+      integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
+      crossorigin=""/>
+      <!-- Make sure you put this AFTER Leaflet's CSS -->
+      <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+      integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
+      crossorigin=""></script>
+      <!--https://fonts.google.com/specimen/Zen+Maru+Gothic?subset=japanese-->
+      <link rel="preconnect" href="https://fonts.googleapis.com">
+      <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+      <link href="https://fonts.googleapis.com/css2?family=Zen+Maru+Gothic:wght@500&display=swap" rel="stylesheet">
+      <link rel="preconnect" href="https://fonts.googleapis.com">
+      <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+      <link href="https://fonts.googleapis.com/css2?family=M+PLUS+1:wght@100;500&family=Zen+Maru+Gothic:wght@500&display=swap" rel="stylesheet">
     </head>
 
+    <!--Body-->
     <body>
-    <h1>お食事処 掲示板</h1>
-    <div id="map"></div>
 
-    <?!= include('map.html'); ?>
-    <?!= include('css.html'); ?>
+      <h1>お食事処 掲示板</h1>
+      
+      <!--地図の表示-->
+      <div id="map"></div>
+      
+      <?!= include('map.html'); ?>
+      <?!= include('css.html'); ?>
 
-    <div class="tab">
-
+      <!-- タブコンテンツ -->
       <!-- 初期状態で表示されるコンテンツに対応するラジオボタンにはchecked="checkedを設定する -->
-      <input id="menu1" class="tab-input" name="menu" type="radio" checked="checked">
-      <label for="menu1" class="tab-item">登録</label>
-      <div class="tab-content">
-        <div style="text-align: center; margin: 20px;">
-          <h4>お店の登録</h4>
-          <div>店名検索</div>
-          <input type="text" name="register" placeholder="店名" id="registerDataName">
-          <button onclick="registerSearchName()">検索</button>
-          <div>電話番号検索</div>
-          <input type="text" name="register" placeholder="電話番号" id="registerDataTel">
-          <button onclick="registerSearchTel()">検索</button>   
-          <div id="checkdata"></div>
-          <div id="notfound1"></div>
-        </div>
-      </div>
+      <div class="tab">
 
-      <input id="menu2" class="tab-input" name="menu" type="radio">
-      <label for="menu2" class="tab-item">ランダム</label>
-      <div class="tab-content">
-        <div style="text-align: center; margin: 20px;">
-          <h4>ランダムお店選び機能</h4>
-          <input type="text" name="search" placeholder="キーワードを入力" id="randomKeyword">
-          <button onclick="randomSearch()">スタート</button>
-          <div id="notfound2"></div>
-          <table class="content-table">
-            <thead id="playerListhead"></thead>
-            <tbody id="playerList"></tbody>  <!-- ここに配列の中身を表示させる -->
-          </table>
+        <!--データ登録-->
+        <input id="menu1" class="tab-input" name="menu" type="radio" checked="checked">
+        <label for="menu1" class="tab-item">登録</label>
+        <div class="tab-content">
+          <div style="text-align: center; margin: 20px;">
+            <h4>お店の登録</h4>
+            <div>店名検索</div>
+            <input type="text" name="register" placeholder="店名" id="registerDataName">
+            <button onclick="registerSearchName()">検索</button>
+            <div><br></div>
+            <div>電話番号検索</div>
+            <input type="text" name="register" placeholder="電話番号" id="registerDataTel">
+            <button onclick="registerSearchTel()">検索</button>   
+            <div id="checkdata"></div>
+            <div id="notfound1"></div>
+            <div><br></div>
+          </div>
         </div>
-      </div>
 
-      <input id="menu3" class="tab-input" name="menu" type="radio">
-      <label for="menu3" class="tab-item">削除</label>
-      <div class="tab-content">
-        <div style="text-align: center; margin: 20px;">
-          <h4>あなたの記録</h4>
-            <table class="content-table" >
-              <thead>
-                <th>店名</th>
-                <th>コメント</th>
-                <th>ボタン</th>
-              </thead>
-              <tbody id="myTable"></tbody>
+        <!--ランダムお店サーチ-->
+        <input id="menu2" class="tab-input" name="menu" type="radio">
+        <label for="menu2" class="tab-item">ランダム</label>
+        <div class="tab-content">
+          <div style="text-align: center; margin: 20px;">
+            <h4>ランダムお店選び機能</h4>
+            <input type="text" name="search" placeholder="キーワードを入力" id="randomKeyword">
+            <button onclick="randomSearch()">スタート</button>
+            <div id="notfound2"></div>
+            <table class="content-table">
+              <thead id="randomListhead"></thead>
+              <tbody id="randomList"></tbody>
             </table>
-          <div id="notfound3"></div>
+          </div>
         </div>
-      </div>
 
-    </div>   
+        <!--登録データ-->
+        <input id="menu3" class="tab-input" name="menu" type="radio">
+        <label for="menu3" class="tab-item">登録データ</label>
+        <div class="tab-content">
+          <div style="text-align: center; margin: 20px;">
+            <h4>あなたの記録</h4>
+              <table class="content-table" >
+                <thead>
+                  <th>店名</th>
+                  <th>コメント</th>
+                  <th>削除</th>
+                </thead>
+                <tbody id="myTable"></tbody>
+              </table>
+            <div id="notfound3"></div>
+          </div>
+        </div>
 
-    <div class = "credit">
+      </div>   
+
+      <!--クレジット-->
+      <div class = "credit">
         <br>
         <p style="font-family: Arial, Helvetica, sans-serif; text-align: center; margin-top: 10px;">Copyright : rinzirinzin. All rights reserved?... Thank you!</p>
         <br>
-    </div>
+      </div>
 
     </body>
 
-
+    <!--データ登録時のダイアログ-->
     <dialog id="registerdialog">
 
       <h2 style="text-align: center">登録フォーム</h2>
@@ -118,22 +129,7 @@
 
     </dialog>
 
-    <dialog id="successdialog">
-      <h2 style="text-align: center">登録が完了しました。</h2>
-      <h4 style="text-align: center">ページを再読み込みしてください。</h4>
-    </dialog>
-
-    <dialog id="failuredialog">
-      <h2 style="text-align: center">予期せぬエラーで登録が失敗しました。</h2>
-      <h4 style="text-align: center">管理者にお問い合わせください。</h4>
-    </dialog>
-
-    <!--データ削除確認ダイアログ-->
-    <dialog id="deletecheckdialog">
-      <h2 style="text-align: center">本当に削除しますか?</h2>
-      <menu id="deletebutton" style="text-align: center"></menu>
-    </dialog>
-
+    <!--お店情報のダイアログ-->
     <dialog id="storeinfodialog">
 
       <div class="row">
@@ -161,201 +157,195 @@
       </menu>
   
     </dialog>
-    
+
+    <!--登録成功時のダイアログ-->
+    <dialog id="successdialog">
+      <h2 style="text-align: center">登録が完了しました。</h2>
+      <h4 style="text-align: center">ページを再読み込みしてください。</h4>
+    </dialog>
+
+    <!--削除成功時のダイアログ-->
+    <dialog id="deletesuccessdialog">
+      <h2 style="text-align: center">削除が完了しました。</h2>
+      <h4 style="text-align: center">ページを再読み込みしてください。</h4>
+    </dialog>
+
+    <!--エラー時のダイアログ-->
+    <dialog id="failuredialog">
+      <h2 style="text-align: center">予期せぬエラーで登録が失敗しました。</h2>
+      <h4 style="text-align: center">管理者にお問い合わせください。</h4>
+    </dialog>
+
+    <!--データ削除確認ダイアログ-->
+    <dialog id="deletecheckdialog">
+      <h2 style="text-align: center">本当に削除しますか?</h2>
+      <menu id="deletebutton" style="text-align: center"></menu>
+    </dialog>
+
+    <!--リクルートAPIを叩きに行く関数-->
     <script>
-      function createTable(){
-          console.log("CreateTable");
-          console.log("配列",loginUserData);
-          const table = document.getElementById("myTable");
-          let button;
-          const order = ["name", "comment", "button"];    
-          console.log(loginUserData.length);
-          console.log(order.length);    
-          for(let i = 0; i < loginUserData.length; i++){
-              const tr = document.createElement("tr");
-              table.appendChild(tr);
-              for(let j = 0; j < order.length; j++){
-                  const td = document.createElement("td");
-                  td.id = "mycomment";
-                  console.log(td);
-                  if(order[j] === "button"){
-                      button = '<button name="button" onclick="deleteUserDataDialog(\'' + loginUserData[i]["id"] + '\')">削除</button>';
-                      td.innerHTML = button;
-                  } else {
-                      td.textContent = loginUserData[i][order[j]];
-                  }
-                  tr.appendChild(td);
-              }
+      let activeTag;
+      let falseTag;
+
+      //店名で検索をかける
+      function registerSearchName(){
+        activeTag = 'registerDataName';
+        falseTag = 'notfound1';
+        let keyword = document.getElementById('registerDataName').value.replace(/　/g," ");
+        let comment = document.getElementById('comment');
+        comment.value = "";
+        google.script.run.withSuccessHandler(displayAPIResult).withFailureHandler(handleError).getRegisterSearch(keyword,"name");
+      }
+
+      //電話番号で検索をかける
+      function registerSearchTel(){
+        activeTag = 'registerDataTel';
+        falseTag = 'notfound1';
+        let keyword = document.getElementById('registerDataTel').value.replace(/　/g," ");
+        let comment = document.getElementById('comment');
+        comment.value = "";
+        google.script.run.withSuccessHandler(displayAPIResult).withFailureHandler(handleError).getRegisterSearch(keyword,"tel");
+      }
+
+      //ランダムお店サーチする
+      function randomSearch(){
+        activeTag = 'randomKeyword';
+        falseTag = 'notfound2';
+        let keyword = document.getElementById(activeTag).value.replace(/　/g," ");//全角スペースを半角スペースに;
+        google.script.run.withSuccessHandler(displayAPIResult).withFailureHandler(handleError).getRandomSearch(keyword);
+      }
+
+      //データ登録するデータを持ってくる(API叩く必要あるか？)
+      function registerData(){
+        let storename = document.getElementById('storename').innerText;
+        let comment = document.getElementById('comment').value;
+        let releaseCheck = document.getElementsByName('releasechk');
+        let checkValue = "";
+        for(let i = 0; i < releaseCheck.length; i++){
+          if(releaseCheck.item(i).checked){
+            checkValue = releaseCheck.item(i).value;
           }
+        }
+        google.script.run.withSuccessHandler(displayRegisterResult).withFailureHandler(handleError).reflectionData(storename,comment,checkValue);
       }
-    </script>
 
-    <script>
-        let activeTag;
-        let falseTag;
+      //予期しないエラー
+      function handleError(error) {
+        const errordialog = document.querySelector('#failuredialog');
+        errortdialog.showModal();
+        console.log(error);
+      }
 
-        function registerSearchName(){
-            activeTag = 'registerDataName';
-            falseTag = 'notfound1';
-            let keyword = document.getElementById('registerDataName').value.replace(/　/g," ");
-            console.log(keyword);
-            let comment = document.getElementById('comment');
-            comment.value = "";
-            google.script.run.withSuccessHandler(displayAPIResult).withFailureHandler(handleError).getRegisterSearch(keyword,"name");
-        }
-
-        function registerSearchTel(){
-            activeTag = 'registerDataTel';
-            falseTag = 'notfound1';
-            let keyword = document.getElementById('registerDataTel').value.replace(/　/g," ");
-            let comment = document.getElementById('comment');
-            comment.value = "";
-            google.script.run.withSuccessHandler(displayAPIResult).withFailureHandler(handleError).getRegisterSearch(keyword,"tel");
-        }
-
-        function randomSearch(){
-            activeTag = 'randomKeyword';
-            falseTag = 'notfound2';
-            let keyword = document.getElementById(activeTag).value.replace(/　/g," ");//全角スペースを半角スペースに;
-            console.log(keyword);
-            google.script.run.withSuccessHandler(displayAPIResult).withFailureHandler(handleError).getRandomSearch(keyword);
-        }
-
-        function registerData(){
-            let storename = document.getElementById('storename').innerText;
-            let comment = document.getElementById('comment').value;
-            let releaseCheck = document.getElementsByName('releasechk');
-            let checkValue = "";
-            for(let i = 0; i < releaseCheck.length; i++){
-                if(releaseCheck.item(i).checked){
-                    checkValue = releaseCheck.item(i).value;
-                }
-            }
-            google.script.run.withSuccessHandler(displayRegisterResult).withFailureHandler(handleError).reflectionData(storename,comment,checkValue);
-        }
-
-        function handleError(error) {
-            console.log("エラーが発生しました:", error);
-        }
-
-    </script>
-
-    <script>
-      // APIの結果を表示する関数
+      // APIの結果を表示する
       function displayAPIResult(apiResult) {
-          const order = ["name", "catch"];
-          console.log(apiResult);
-          const falseDiv = document.getElementById(falseTag);
-          if(!apiResult){
-              falseDiv.innerHTML = '<h5>キーワード : '+document.getElementById(activeTag).value+'では見つかりませんでした...</h5>';
+        const order = ["name", "catch"];
+        const falseDiv = document.getElementById(falseTag);
+        if(!apiResult){
+          falseDiv.innerHTML = '<h5>キーワード : '+document.getElementById(activeTag).value+'では見つかりませんでした...</h5>';
+        } else {
+          falseDiv.innerHTML ="";
+
+          if(activeTag.includes('registerData')){
+            //登録するお店の確認
+            const checkDiv = document.getElementById("checkdata");
+            checkDiv.innerHTML = '<h5>登録する店は '+apiResult[0]["name"]+' で合っていますか?</h5>';
+            checkDiv.innerHTML += '<button onclick="showDialog(\'#registerdialog\')">OK</button>';
+            const storenameDiv = document.getElementById("storename");
+            storenameDiv.innerHTML = apiResult[0]["name"];
           } else {
-              falseDiv.innerHTML ="";
 
-              if(activeTag.includes('registerData')){
-                  const checkDiv = document.getElementById("checkdata");
-                  checkDiv.innerHTML = '<h5>登録する店は '+apiResult[0]["name"]+' で合っていますか?</h5>';
-                  checkDiv.innerHTML += '<button onclick="showDialog()">OK</button>';
-                  const storenameDiv = document.getElementById("storename");
-                  storenameDiv.innerHTML = apiResult[0]["name"];
-              } else {
+            const randomList = document.getElementById("randomList");
+            randomList.innerHTML = "";
 
-              const playerList = document.getElementById("playerList");
-              playerList.innerHTML = "";
+            const tableHeader = document.getElementById("randomListhead");
+            tableHeader.innerHTML = "";
 
-              const tableHeader = document.getElementById("playerListhead");
-              tableHeader.innerHTML = "";
+            // 新しい行を作成
+            const tableRow = document.createElement("tr");
 
-              // 新しい行を作成
-              const tableRow = document.createElement("tr");
+            // セルを作成して行に追加
+            const cell1 = document.createElement("th");
+            cell1.textContent = "店名";
+            tableRow.appendChild(cell1);
 
-              // セルを作成して行に追加
-              const cell1 = document.createElement("th");
-              cell1.textContent = "店名";
-              tableRow.appendChild(cell1);
+            const cell2 = document.createElement("th");
+            cell2.textContent = "キャッチコピー";
+            tableRow.appendChild(cell2);
 
-              const cell2 = document.createElement("th");
-              cell2.textContent = "キャッチコピー";
-              tableRow.appendChild(cell2);
+            // 行をテーブルヘッダーに追加
+            tableHeader.appendChild(tableRow);
 
-              /*const cell3 = document.createElement("th");
-              cell3.textContent = "サイト";
-              tableRow.appendChild(cell3);*/
-
-              // 行をテーブルヘッダーに追加
-              tableHeader.appendChild(tableRow);
-
-
-              for(let i = 0; i < apiResult.length; i++){
-                  const tr = document.createElement("tr");
-                  playerList.appendChild(tr);  
-                  for(let j = 0; j < order.length; j++){
-                      const td = document.createElement("td");
-                      if(order[j] === "name"){
-                          td.innerHTML = "<a href='"+apiResult[i]["urls"]+"' target='_blank'>"+apiResult[i]["name"]+"</a>";
-                      } else {
-                          td.textContent = apiResult[i][order[j]];
-                      }
-                      console.log(apiResult[i][order[j]],i,j);
-                      tr.appendChild(td);
-                  }
+            for(let i = 0; i < apiResult.length; i++){
+              const tr = document.createElement("tr");
+              randomList.appendChild(tr);  
+              for(let j = 0; j < order.length; j++){
+                const td = document.createElement("td");
+                if(order[j] === "name"){
+                  td.innerHTML = "<a href='"+apiResult[i]["urls"]+"' target='_blank'>"+apiResult[i]["name"]+"</a>";
+                } else {
+                  td.textContent = apiResult[i][order[j]];
+                }
+                tr.appendChild(td);
               }
-
-              }
-
+            }
+          }
         }
       }
 
-      //登録完了を表示
+      //登録時の表示
       function displayRegisterResult(apiResult){
-        //console.log(apiResult);
         let dialog = document.querySelector('#registerdialog');
         dialog.close();
         let resultdialog = "";
         if(apiResult){
-            resultdialog = document.querySelector('#successdialog');
+          resultdialog = document.querySelector('#successdialog');
         } else {
-            resultdialog = document.querySelector('#failuredialog');
+          resultdialog = document.querySelector('#failuredialog');
         }
         resultdialog.showModal();
       }
 
-      function showDialog(){
-        let dialog = document.querySelector('#registerdialog');
+      //ダイアログを表示
+      function showDialog(id){
+        let dialog = document.querySelector(id);
         dialog.showModal();
       }
 
+      //ダイアログを閉じる
       function closeDialog(id){
         let dialog = document.querySelector(id);
         dialog.close();
       }
 
+      //地図上の"詳細ボタン"を押したときの処理
       function buttonClick(buttonId) {
-        console.log('ボタン ' + buttonId + ' が押されました！');
-        // ここで必要な処理を行う
         for(let i = 0; i < mapData.length; i++){
-            if (mapData[i]["id"] === buttonId){
-                let dialog = document.querySelector('#storeinfodialog');
-                const storenameDiv = document.getElementById("storenamemap");
-                storenameDiv.innerHTML = "<a href='" + mapData[i]['link'] + "' target='_blank'>" + mapData[i]["name"] + "</a>";
-                const storeaddressDiv = document.getElementById("storeaddress");
-                storeaddressDiv.innerHTML = mapData[i]["address"];
-                const storestationDiv = document.getElementById("storestation");
-                storestationDiv.innerHTML = mapData[i]["station"];
-                const storecommentDiv = document.getElementById("storecomment");
-                storecommentDiv.innerHTML = "";
-                for(let j = 0; j < commentData[mapData[i]["name"]].length; j++){
-                    storecommentDiv.innerHTML += "・"+commentData[mapData[i]["name"]][j]["comment"];
-                    if(j !== commentData[mapData[i]["name"]].length-1){
-                        storecommentDiv.innerHTML += "<br>";
-                    }
-                }
-                dialog.showModal();
-            };
+          if (mapData[i]["id"] === buttonId){
+            //ダイアログの表示内容を設定
+            let dialog = document.querySelector('#storeinfodialog');
+            const storenameDiv = document.getElementById("storenamemap");
+            storenameDiv.innerHTML = "<a href='" + mapData[i]['link'] + "' target='_blank'>" + mapData[i]["name"] + "</a>";
+            const storeaddressDiv = document.getElementById("storeaddress");
+            storeaddressDiv.innerHTML = mapData[i]["address"];
+            const storestationDiv = document.getElementById("storestation");
+            storestationDiv.innerHTML = mapData[i]["station"];
+            const storecommentDiv = document.getElementById("storecomment");
+            storecommentDiv.innerHTML = "";
+
+            //表示内容を要素に追加
+            for(let j = 0; j < commentData[mapData[i]["name"]].length; j++){
+              storecommentDiv.innerHTML += "・"+commentData[mapData[i]["name"]][j]["comment"];
+              if(j !== commentData[mapData[i]["name"]].length-1){
+                storecommentDiv.innerHTML += "<br>";
+              }
+            }
+            dialog.showModal();
+          };
         }
       }
 
+      //データ削除ダイアログの表示
       function deleteUserDataDialog(id) {
-        console.log('ボタン ' + id + ' が押されました！',"削除");
         let dialog = document.querySelector('#deletecheckdialog');
         const checkDiv = document.getElementById("deletebutton");
         checkDiv.innerHTML = '<button id="deletecancel" type="reset" onclick="closeDialog(\'#deletecheckdialog\')">キャンセル</button>';
@@ -363,8 +353,8 @@
         dialog.showModal();
       }
 
+      //データ削除
       function deleteData(id) {
-        console.log(id)
         google.script.run.withSuccessHandler(displayDeleteComplete).withFailureHandler(handleError).deleteSheetRows(id);
       }
 
@@ -374,9 +364,9 @@
         dialog.close();
         let resultdialog = "";
         if(apiResult){
-            resultdialog = document.querySelector('#successdialog');
+          resultdialog = document.querySelector('#deletesuccessdialog');
         } else {
-            resultdialog = document.querySelector('#failuredialog');
+          resultdialog = document.querySelector('#failuredialog');
         }
         resultdialog.showModal();
       }
