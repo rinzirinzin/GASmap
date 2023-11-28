@@ -21,6 +21,12 @@ function includeUserInHTML() {
   return user;
 }
 
+//スクリプトのURLを取得
+function getScriptUrl() {
+  var url = ScriptApp.getService().getUrl();
+  return url;
+}
+
 //SHEET_NAMEのシートを取得
 function getSheet_(SHEET_NAME) {
   return SpreadsheetApp.getActive().getSheetByName(SHEET_NAME);

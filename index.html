@@ -168,18 +168,18 @@
     <!--登録成功時のダイアログ-->
     <dialog id="successdialog">
       <h2 style="text-align: center">登録が完了しました。</h2>
-      <h4 style="text-align: center">ページを再読み込みしてください。</h4>
+      <h4 style="text-align: center">ページが自動更新されるので少々お待ちを...</h4>
     </dialog>
 
     <!--削除成功時のダイアログ-->
     <dialog id="deletesuccessdialog">
       <h2 style="text-align: center">削除が完了しました。</h2>
-      <h4 style="text-align: center">ページを再読み込みしてください。</h4>
+      <h4 style="text-align: center">ページが自動更新されるので少々お待ちを...</h4>
     </dialog>
 
     <!--エラー時のダイアログ-->
     <dialog id="failuredialog">
-      <h2 style="text-align: center">予期せぬエラーで登録が失敗しました。</h2>
+      <h2 style="text-align: center">予期せぬエラーが起きました。</h2>
       <h4 style="text-align: center">管理者にお問い合わせください。</h4>
     </dialog>
 
@@ -309,9 +309,14 @@
         let resultdialog = "";
         if(apiResult){
           showDialog('#successdialog');
+          pageUpdate();
         } else {
           showDialog('#failuredialog');
         }
+      }
+
+      function empty(apiResult){
+          console.log(apiResult);
       }
 
       //ダイアログを表示
@@ -375,9 +380,17 @@
         let resultdialog = "";
         if(apiResult){
           showDialog('#deletesuccessdialog');
+          pageUpdate();
         } else {
           showDialog('#failuredialog');
         }
+      }
+
+      //ページの自動更新
+      function pageUpdate() {
+        google.script.run.withSuccessHandler(function(url) {
+          window.open(url, '_top');
+        }).getScriptUrl();
       }
 
     </script>
