@@ -81,8 +81,8 @@ const URL = 'http://webservice.recruit.co.jp/hotpepper/gourmet/v1/';
 const API_KEY = "APIキー";
 
 //データを登録する
-function reflectionData(storename,comment,checkValue) {
-  const URL_tmp = URL + '?key=' + API_KEY + '&name=' + storename + "&format=json" + "&count=1";
+function reflectionData(comment,checkValue,id) {
+  const URL_tmp = URL + '?key=' + API_KEY + '&id=' + id + "&format=json" + "&count=1";
   let response = UrlFetchApp.fetch(URL_tmp);
   var responseData = JSON.parse(response.getContentText());
   const shopData = responseData["results"]["shop"][0];
@@ -90,6 +90,7 @@ function reflectionData(storename,comment,checkValue) {
   if(responseData["results"]["shop"].length === 0){
     return false;
   }
+  let storename = shopData["name"];
   let link = shopData["urls"]["pc"];
   let address = shopData["address"];
   let stationname = shopData["station_name"];
@@ -160,7 +161,7 @@ async function getRegisterSearch(keyword,swkey){
     "name": shopData["name"],
     "catch": shopData["catch"],
     "urls": shopData["urls"]["pc"],
-    "tel" : shopData["tel"]
+    "id" : shopData["id"]
   };
   result.push(resultObj);
   return result;
@@ -171,5 +172,5 @@ function doGet() {
   const template = HtmlService.createTemplateFromFile("index");
   template.mail = user;
   template.dataSet = getDataSet();
-  return template.evaluate().setTitle('お食事処 掲示板')
+  return template.evaluate().setTitle('お食事処 掲示板');
 }

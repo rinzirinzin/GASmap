@@ -233,7 +233,8 @@
             checkValue = releaseCheck.item(i).value;
           }
         }
-        google.script.run.withSuccessHandler(displayRegisterResult).withFailureHandler(handleError).reflectionData(storename,comment,checkValue);
+        let id = tmpData["id"];
+        google.script.run.withSuccessHandler(displayRegisterResult).withFailureHandler(handleError).reflectionData(comment,checkValue,id);
       }
 
       //予期しないエラー
@@ -241,6 +242,9 @@
         showDialog('#failuredialog');
         console.log(error);
       }
+
+      //登録データを一時保存
+      let tmpData = [];
 
       // APIの結果を表示する
       function displayAPIResult(apiResult) {
@@ -250,7 +254,6 @@
           falseDiv.innerHTML = '<h5>キーワード : '+document.getElementById(activeTag).value+'では見つかりませんでした...</h5>';
         } else {
           falseDiv.innerHTML ="";
-
           if(activeTag.includes('registerData')){
             //登録するお店の確認
             const checkDiv = document.getElementById("checkdata");
@@ -258,6 +261,8 @@
             checkDiv.innerHTML += '<button onclick="showDialog(\'#registerdialog\')">OK</button>';
             const storenameDiv = document.getElementById("storename");
             storenameDiv.innerHTML = apiResult[0]["name"];
+            tmpData = apiResult[0];
+
           } else {
 
             const randomList = document.getElementById("randomList");
