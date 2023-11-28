@@ -34,6 +34,15 @@ function getSheet_(SHEET_NAME) {
 
 const MAPDATA_SHEET_NAME = "登録データ";
 
+//名言を取得する
+function getMeigen(){
+  const URL = "https://meigen.doodlenote.net/api/json.php?c=1";
+  let response = UrlFetchApp.fetch(URL);
+  let responseData = JSON.parse(response.getContentText());
+  console.log(responseData);
+  return responseData;
+}
+
 //スプレッドシートからデータを取得する
 function getDataSet() {
   const sheet = getSheet_(MAPDATA_SHEET_NAME);
@@ -90,7 +99,7 @@ const API_KEY = "APIキー";
 function reflectionData(comment,checkValue,id) {
   const URL_tmp = URL + '?key=' + API_KEY + '&id=' + id + "&format=json" + "&count=1";
   let response = UrlFetchApp.fetch(URL_tmp);
-  var responseData = JSON.parse(response.getContentText());
+  let responseData = JSON.parse(response.getContentText());
   const shopData = responseData["results"]["shop"][0];
   //登録失敗
   if(responseData["results"]["shop"].length === 0){

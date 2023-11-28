@@ -219,7 +219,11 @@
         activeTag = 'randomKeyword';
         falseTag = 'notfound2';
         let keyword = document.getElementById(activeTag).value.replace(/　/g," ");//全角スペースを半角スペースに;
-        google.script.run.withSuccessHandler(displayAPIResult).withFailureHandler(handleError).getRandomSearch(keyword);
+        if(keyword === "名言"){
+          google.script.run.withSuccessHandler(displayMeigenResult).withFailureHandler(handleError).getMeigen(keyword);
+        } else {
+          google.script.run.withSuccessHandler(displayAPIResult).withFailureHandler(handleError).getRandomSearch(keyword);
+        }
       }
 
       //データ登録するデータを持ってくる(API叩く必要あるか？)
@@ -245,6 +249,13 @@
 
       //登録データを一時保存
       let tmpData = [];
+
+      // 名言の結果を表示する
+      function displayMeigenResult(apiResult) {
+        const falseDiv = document.getElementById(falseTag);
+        falseDiv.innerHTML = '<h5>'+apiResult[0]["meigen"]+'</h5>';
+        falseDiv.innerHTML += '<h5>'+apiResult[0]["auther"]+'</h5>';
+      }
 
       // APIの結果を表示する
       function displayAPIResult(apiResult) {
