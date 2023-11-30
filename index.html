@@ -62,7 +62,12 @@
           <div style="text-align: center; margin: 20px;">
             <h4>ランダムお店選び機能</h4>
             <input type="text" name="search" placeholder="キーワードを入力" id="randomKeyword">
-            <button onclick="randomSearch()">スタート</button>
+            <!--<button class="search-form-010" onclick="randomSearch()"></button>-->
+            <button class="searchbutton" onclick="randomSearch()">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="15" height="15">
+            <path fill="#ffffff" d="M23.7 20.8 19 16.1c-.2-.2-.5-.3-.8-.3h-.8c1.3-1.7 2-3.7 2-6C19.5 4.4 15.1 0 9.7 0S0 4.4 0 9.7s4.4 9.7 9.7 9.7c2.3 0 4.3-.8 6-2v.8c0 .3.1.6.3.8l4.7 4.7c.4.4 1.2.4 1.6 0l1.3-1.3c.5-.5.5-1.2.1-1.6zm-14-5.1c-3.3 0-6-2.7-6-6s2.7-6 6-6 6 2.7 6 6-2.6 6-6 6z"/>
+            </svg>
+            </button>
             <div id="notfound2"></div>
             <table class="content-table">
               <thead id="randomListhead"></thead>
