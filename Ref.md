@@ -16,8 +16,10 @@
 ### デザイン系 
 * https://qreat.tech/2712/
 * https://fonts.google.com/
+* https://pote-chil.com/html-maker/search-form
 
 ### Todo
+* デザインを修正
 
 ### バグ
 * 登録がうまく行かないケースがある
