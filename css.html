@@ -1,5 +1,6 @@
 <style>
 
+  /*検索ボタン*/
   .searchbutton {
       /*display: flex;*/
       /*justify-content: center;*/
@@ -21,238 +22,225 @@
       fill: #2589d0;
   }
   
-    #map {
-      width: 800px; 
-      height: 550px;
-      display: block;
-      margin-left: auto;
-      margin-right: auto;
-      border: 8px solid rgb(0, 0, 0);
-      border-radius: 10px;
-    }
+  /*地図*/
+  #map {
+    width: 800px; 
+    height: 550px;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    border: 8px solid rgb(0, 0, 0);
+    border-radius: 10px;
+  }
   
-    #storeinfodialog {
-      max-width: 800px; /* 任意の最大幅 */
-      width: auto;
-    }
+  /*お店情報ダイアログ*/
+  #storeinfodialog {
+    max-width: 800px; /* 任意の最大幅 */
+    width: auto;
+  }
+
+  #storenamemap,
+  #storeaddress,
+  #storestation {
+    white-space: nowrap;
+  }
   
-    #storenamemap,
-    #storeaddress,
-    #storestation {
-      white-space: nowrap;
-    }
+  label[for="storestoremap"],
+  label[for="storeaddress"],
+  label[for="storestation"] {
+    white-space: nowrap;
+  }
   
-    label[for="storestoremap"],
-    label[for="storeaddress"],
-    label[for="storestation"] {
-      white-space: nowrap;
-    }
+  menu {
+    text-align: center;
+    display: flex;
+    justify-content: space-around;
+  }
+
+  /*見出し*/  
+  h1,h2,h4 {
+    text-align : center; 
+    font-family : 'Zen Maru Gothic', sans-serif;
+  }
+
+  h1 {
+    font-size : 50px;
+  }
+
+  /*基本フォント*/
+  div{
+    font-family: 'M PLUS 1', sans-serif;
+    font-family: 'Zen Maru Gothic', serif;
+  }
   
-    menu {
-      text-align: center;
-      display: flex;
-      justify-content: space-around;
-    }
+  /*背景色*/
+  body {
+    background-color : #c4dcd4;
+  }
+
+  /*ランダム検索データ・登録データテーブルの書式*/
+  .content-table {
+    white-space: nowrap;
+    width: 600px;
+    overflow: hidden; /* ハミ出した部分を隠す */
+    text-overflow: ellipsis; /* 「…」と省略 */
+    border-collapse: collapse;
+    margin: 25px auto;
+    font-size: 12px;
+    border-radius: 5px 5px 0 0;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+    table-layout: fixed; /* テーブルのレイアウトを固定 */
+  }
+  .content-table thead tr {
+    background: #005498;
+    color: #ffffff;
+    text-align: center;
+    font-weight: bold;
+  }
+  .content-table th,
+  .content-table td {
+    padding: 12px 15px;
+    background: none;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  .content-table tbody tr {
+    border-bottom: 1px solid #dddddd;
+    transition: 0.8s all ease;
+  }
+  .content-table tbody tr:nth-of-type(even) {
+    background: #f3f3f3;
+  }
+  .content-table tbody tr:last-of-type {
+    border-bottom: 2px solid #005498;
+  }
+
+  /*地図上のデータを表示するテーブル*/
+  .comment-table {
+    white-space: nowrap;
+    width: 600px;
+    overflow: hidden; /* ハミ出した部分を隠す */
+    text-overflow: ellipsis; /* 「…」と省略 */
+    border-collapse: collapse;
+    margin: 25px auto;
+    font-size: 12px;
+    border-radius: 5px 5px 0 0;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+    table-layout: fixed; /* テーブルのレイアウトを固定 */
+  }
+  .comment-table thead tr {
+    background: #41a34e;
+    color: #ffffff;
+    text-align: center;
+    font-weight: bold;
+  }
+  .comment-table th,
+  .comment-table td {
+    font-size: 16px;
+    padding: 6px 7.5px;
+    background: none;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  .comment-table tbody tr:nth-of-type(even) {
+    background: #f3f3f3;
+  }
+  .comment-table tbody tr:last-of-type {
+    border-bottom: 2px solid #41a34e;
+  }
   
-    div{
-      font-family: 'M PLUS 1', sans-serif;
-      font-family: 'Zen Maru Gothic', serif;
-    }
+  /*https://yuntu-tek.com/tab-menu/*/
+  * {
+    box-sizing: border-box;
+  }
   
-    body {
-      background-color : #c4dcd4;
-    }
+  /* ラジオボタンは非表示 */
+  input[type="radio"] {
+    display: none;
+  }
   
-    dialog {
-      width: 300px;
-      text-overflow: ellipsis;
-      -webkit-box-orient: vertical;
-      -webkit-line-clamp: 1;
-    }
+  /*ダイアログ内に例外的に表示*/
+  #registerdialog input[type="radio"] {
+    display: inline-block; 
+  }
   
-    h1,h2,h4 {
-      text-align : center; 
-      font-family : 'Zen Maru Gothic', sans-serif;
-    }
+  /*タブ*/
+  .tab {
+    width: 700px;
+    max-width: 100%;
+    margin: auto;
+    padding-top: 20px;
+    display: flex;
+    flex-flow: wrap;
+  }
   
-    h1 {
-      font-size : 50px;
-    }
+  .tab-item {
+    display: block;
+    flex-grow: 1;
+    text-align: center;
+    padding: 10px 0;
+    cursor: pointer;
+    order: -1;/* タブメニューは一番上に表示する */
+    background-color : #ececec;
+    /* 下線以外をつける */
+    border-top: 0px solid skyblue;
+    border-left: 0px solid skyblue;
+    border-right: 0px solid skyblue;
+  }
   
-    .content-table {
-      white-space: nowrap;
-      width: 600px;
+  .tab-item:not(:first-of-type) {
+    border-left: none;
+  }
   
-      overflow: hidden; /* ハミ出した部分を隠す */
-      text-overflow: ellipsis; /* 「…」と省略 */
+  /* アクティブなタブの背景色と文字色を変える */
+  .tab-input:checked + .tab-item {
+    background: #c0c0c0;
+    color: black;
+  }
   
-      border-collapse: collapse;
-      margin: 25px auto;
-      font-size: 12px;
-      border-radius: 5px 5px 0 0;
-      box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
-      table-layout: fixed; /* テーブルのレイアウトを固定 */
+  /* コンテンツは原則非表示 */
+  .tab-content {
+    width: 100%;
+    /*height: 200px;*/
+    background-color: #ececec;
+    display: none;
+    justify-content: center;
+    align-items: center;
+    /*font-size: 40px;*/
+    border: 0px solid skyblue;
+    border-top: 3px solid green;
+    border-bottom-right-radius: 10px;
+    border-bottom-left-radius: 10px;
+  }
   
-    }
+  /* ラジオボタンがチェックされているコンテンツだけは表示 */
+  .tab-input:checked + .tab-item + .tab-content {
+    display: flex;
+  }
   
-    .content-table thead tr {
-      background: #005498;
-      color: #ffffff;
-      text-align: center;
-      font-weight: bold;
-    }
-    .content-table th,
-    .content-table td {
-      padding: 12px 15px;
-      background: none;
-      overflow: hidden;
-      text-overflow: ellipsis;
-    }
-    .content-table tbody tr {
-      border-bottom: 1px solid #dddddd;
-      transition: 0.8s all ease;
-    }
-    .content-table tbody tr:nth-of-type(even) {
-      background: #f3f3f3;
-    }
-    .content-table tbody tr:last-of-type {
-      border-bottom: 2px solid #005498;
-    }
-  
-    .comment-table {
-      white-space: nowrap;
-      width: 600px;
-  
-      overflow: hidden; /* ハミ出した部分を隠す */
-      text-overflow: ellipsis; /* 「…」と省略 */
-  
-      border-collapse: collapse;
-      margin: 25px auto;
-      font-size: 12px;
-      border-radius: 5px 5px 0 0;
-      box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
-      table-layout: fixed; /* テーブルのレイアウトを固定 */
-  
-    }
-  
-    .comment-table thead tr {
-      background: #41a34e;
-      color: #ffffff;
-      text-align: center;
-      font-weight: bold;
-    }
-    .comment-table th,
-    .comment-table td {
-      font-size: 16px;
-      padding: 6px 7.5px;
-      background: none;
-      overflow: hidden;
-      text-overflow: ellipsis;
-    }
-    /*.comment-table tbody tr {
-      font-size: 14px;
-      padding: 6px 7.5px;
-      border-bottom: 1px solid #dddddd;
-      transition: 0.8s all ease;
-      overflow: hidden;
-      text-overflow: ellipsis;
-    }*/
+  /*ダイアログ関係*/
+  dialog {
+    width: 400px;
+    padding: 20px;
+    border: solid 1px;
+    width: 300px;
+    text-overflow: ellipsis;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 1;
+  }
+
+  /*テーブル関連*/ 
+  .row {
+    display: flex;
+    margin: 10px;
+  }
     
-    .comment-table tbody tr:nth-of-type(even) {
-      background: #f3f3f3;
-    }
-  
-    .comment-table tbody tr:last-of-type {
-      border-bottom: 2px solid #41a34e;
-    }
-  
-    /*https://yuntu-tek.com/tab-menu/*/
-    * {
-      box-sizing: border-box;
-    }
-  
-    /* ラジオボタンは非表示 */
-    input[type="radio"] {
-      display: none;
-    }
-  
-    /*ダイアログ内に例外的に表示*/
-    #registerdialog input[type="radio"] {
-      display: inline-block; 
-    }
-  
-    .tab {
-      width: 700px;
-      max-width: 100%;
-      margin: auto;
-      padding-top: 20px;
-      display: flex;
-      flex-flow: wrap;
-    }
-  
-    .tab-item {
-      display: block;
-      flex-grow: 1;
-      text-align: center;
-      padding: 10px 0;
-      cursor: pointer;
-      order: -1;/* タブメニューは一番上に表示する */
-      background-color : #ececec;
-      /* 下線以外をつける */
-      border-top: 0px solid skyblue;
-      border-left: 0px solid skyblue;
-      border-right: 0px solid skyblue;
-    }
-  
-    .tab-item:not(:first-of-type) {
-      border-left: none;
-    }
-  
-    /* アクティブなタブの背景色と文字色を変える */
-    .tab-input:checked + .tab-item {
-      background: #c0c0c0;
-      color: black;
-    }
-  
-    /* コンテンツは原則非表示 */
-    .tab-content {
-      width: 100%;
-      /*height: 200px;*/
-      background-color: #ececec;
-      display: none;
-      justify-content: center;
-      align-items: center;
-      /*font-size: 40px;*/
-      border: 0px solid skyblue;
-      border-top: 3px solid green;
-      border-bottom-right-radius: 10px;
-      border-bottom-left-radius: 10px;
-    }
-  
-    /* ラジオボタンがチェックされているコンテンツだけは表示 */
-    .tab-input:checked + .tab-item + .tab-content {
-      display: flex;
-    }
-  
-    /*ダイアログ関係*/
-    dialog {
-      width: 400px;
-      padding: 20px;
-      border: solid 1px;
-    }
+  .row label {
+    width: 90px;
+  }
     
-    .row {
-      display: flex;
-      margin: 10px;
-    }
-    
-    .row label {
-      width: 90px;
-    }
-    
-    textarea {
-      width: 250px;
-    }
-  
+  textarea {
+    width: 250px;
+  }
   
   </style>
