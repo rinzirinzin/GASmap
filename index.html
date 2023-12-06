@@ -137,8 +137,17 @@
       </div>
 
       <menu style="text-align: center">
-        <button id="cancel" type="reset" onclick="closeDialog('#registerdialog')">キャンセル</button>
-        <button id="confirm" type="submit" onclick="registerData()">　登録　</button>
+        <button class="batsubutton" id="cancel" type="reset" onclick="closeDialog('#registerdialog')">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="2 -1 24 24" width="20" height="20">
+            <path fill="#ffffff" d="M18 6 L6 18"/>
+            <path fill="#ffffff" d="M6 6 L18 18"/>
+          </svg>
+        </button>
+        <button class="marubutton" id="confirm" type="submit" onclick="registerData()">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="1 -1 24 24" width="18" height="18">
+            <circle cx="12" cy="12" r="8" fill="none" stroke="#ffffff" stroke-width="4"/>
+          </svg>
+        </button>
       </menu>
 
     </dialog>
@@ -173,7 +182,12 @@
       </div>
 
       <menu style="text-align: center">
-        <button id="cancel" type="reset" onclick="closeDialog('#storeinfodialog')">閉じる</button>
+        <button class="batsubutton" id="cancel" type="reset" onclick="closeDialog('#storeinfodialog')">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="2 -2 24 24" width="20" height="20">
+            <path fill="#ffffff" d="M18 6 L6 18"/>
+            <path fill="#ffffff" d="M6 6 L18 18"/>
+          </svg>
+        </button>
       </menu>
   
     </dialog>
@@ -282,7 +296,7 @@
             //登録するお店の確認
             const checkDiv = document.getElementById("checkdata");
             checkDiv.innerHTML = '<h5>登録する店は '+apiResult[0]["name"]+' で合っていますか?</h5>';
-            checkDiv.innerHTML += '<button onclick="showDialog(\'#registerdialog\')">OK</button>';
+            checkDiv.innerHTML += '<div style="text-align: center; padding-top: 5px;"><button class="marubutton" onclick="showDialog(\'#registerdialog\')"><svg xmlns="http://www.w3.org/2000/svg" viewBox="1 -2 24 24" width="18" height="18"><circle cx="12" cy="12" r="8" fill="none" stroke="#ffffff" stroke-width="4"/></svg></button></div>';
             const storenameDiv = document.getElementById("storename");
             storenameDiv.innerHTML = apiResult[0]["name"];
             tmpData = apiResult[0];
@@ -388,8 +402,8 @@
       //データ削除ダイアログの表示
       function deleteUserDataDialog(id) {
         const checkDiv = document.getElementById("deletebutton");
-        checkDiv.innerHTML = '<button id="deletecancel" type="reset" onclick="closeDialog(\'#deletecheckdialog\')">キャンセル</button>';
-        checkDiv.innerHTML += '<button name="button" onclick="deleteData(\'' + id + '\')">　削除　</button>';
+        checkDiv.innerHTML = '<button class="batsubutton" id="deletecancel" type="reset" onclick="closeDialog(\'#deletecheckdialog\')"><svg xmlns="http://www.w3.org/2000/svg" viewBox="2 -1 24 24" width="20" height="20"><path fill="#ffffff" d="M18 6 L6 18"/><path fill="#ffffff" d="M6 6 L18 18"/></svg></button>';
+        checkDiv.innerHTML += '<button class="marubutton" name="button" onclick="deleteData(\'' + id + '\')"><svg xmlns="http://www.w3.org/2000/svg" viewBox="1 -1 24 24" width="18" height="18"><circle cx="12" cy="12" r="8" fill="none" stroke="#ffffff" stroke-width="4"/></svg></button>';
         showDialog('#deletecheckdialog');
       }
 

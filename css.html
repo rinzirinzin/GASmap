@@ -21,7 +21,87 @@
   .searchbutton:hover path {
       fill: #2589d0;
   }
+
+.batsubutton {
+  align-items: center;
+  width: 30px;
+  height: 30px;
+  border: 1px solid #ff6347;
+  border-radius: 50%;
+  background-color: #ff6347;
+}
+
+.batsubutton:hover {
+  border: 1px solid #ff6347;
+  background-color: #fff;
+}
+
+.batsubutton path {
+  stroke: #ffffff; /* 初期の色を指定 */
+  stroke-width: 4;
+}
+
+.batsubutton:hover path {
+  stroke: #ff6347; /* ホバー時の色を指定 */
+}
+  /*.batsubutton:hover path {
+      fill: #2589d0;
+  }*/
   
+  .deletedatabutton {
+    align-items: center;
+    width: 30px;
+    height: 30px;
+    border: 1px solid #8d8e8f;
+    border-radius: 90%;
+    background-color: #8d8e8f;
+    margin-left :10px
+  }
+
+  .deletedatabutton:hover {
+    border: 1px solid #8d8e8f;
+    background-color: #fff;
+  }
+  
+  .deletedatabutton:hover path {
+    fill: #8d8e8f;
+  }
+
+  .detailinfobutton {
+    border-radius: 10%;
+    padding: 5px;
+    padding-left : 7.5px;
+    padding-right : 7.5px;
+    color: #fff;
+    background-color: #eb6100;
+  }
+
+  .marubutton {
+      /*display: flex;*/
+      /*justify-content: center;*/
+      align-items: center;
+      width: 30px;
+      height: 30px;
+      /*border: none;*/
+      border: 1px solid #7ece46;
+      border-radius: 50%;
+      background-color: #7ece46;
+  }
+
+  .marubutton:hover {
+      border: 1px solid #7ece46;
+      background-color: #fff;
+  }
+
+  .marubutton:hover svg circle {
+      stroke: #7ece46; /* ホバー時の丸の色を変更 */
+  }
+  
+  /*.marubutton:hover path {
+      fill: #2589d0;
+  }*/
+
+
   /*地図*/
   #map {
     width: 800px; 
